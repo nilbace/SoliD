@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using static Define;
 
-public interface IClearAfterBattle { void Clear(); }
+namespace Managers
+{
+    public interface IClearAfterBattle { void Clear(); }
+}
 
 /// <summary>
 /// 카드나 몬스터 패턴의 행동들을 정리해둔 NameSpace입니다
@@ -12,44 +15,43 @@ public interface IClearAfterBattle { void Clear(); }
 /// </summary>
 namespace CombatMechanism
 {
-    #region Interfaces
-    /// <summary>
-    /// 지정된 적에게 효과를 적용합니다.
-    /// </summary>
-    public interface IToTargetEnemy { void ToTarget(Char Target); }
+    public enum TargetType { 
+        TargetEnemy,
+        AnyEnemy, 
+        AllEnemies,
+        Self,
+        Allies
+    }
+    public abstract class NeedTarget
+    {
+        public TargetType TargetType;
 
-    /// <summary>
-    /// 모든 적에게 효과를 적용합니다.
-    /// </summary>
-    public interface IToAllEnemies { void ToAllEnemies(List<Char> Target); }
-    /// <summary>
-    /// 카드를 사용한 유저에게 효과를 적용합니다
-    /// </summary>
-    public interface IToSelf { void ToTarget(Char User); }
-    #endregion
-
-
+        public abstract void EffectToTarget(List<Char> Targets);
+           }
 
     #region concreteBehavior
     /// <summary>
     /// 적의 HP를 감소시킵니다. 생성할 때 몇의 Damage를 줄지 결정합니다.
     /// </summary>
-    public class AttackTargetedOne : IToTargetEnemy
+    public class AttackTargetedOne : NeedTarget
     {
         public Char Target;
         public float Damage;
         public AttackTargetedOne(float Damage)
-        { this.Damage = Damage; }
+        { this.Damage = Damage; TargetType = TargetType.TargetEnemy; }
 
-        public void ToTarget(Char Target)
+        public override void EffectToTarget(List<Char> Targets)
         {
-            Target.NowHP -= Damage;
+            foreach (var Char in Targets)
+            {
+                Char.NowHP -= Damage;
+            }
         }
     }
 
-    public class AttackAllEnemies : IToAllEnemies
+    public class AttackAllEnemies : NeedTarget
     {
-        public void ToAllEnemies(List<Char> Target)
+        public override void EffectToTarget(List<Char> Targets)
         {
             throw new System.NotImplementedException();
         }
@@ -132,11 +134,11 @@ public static class Define
         {
             if (mechanism is IToTargetEnemy TargetMonster)
             {
-                TargetMonster.ToTarget(Target);
+                TargetMonster.EffectToTarget(Target);
             }
             else if(mechanism is IToAllEnemies AllMonsters)
             {
-
+                //AllMonsters.
             }
             else if (mechanism is Interval delayMechanism)
             {
