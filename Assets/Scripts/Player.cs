@@ -15,17 +15,16 @@ public class Player : MonoBehaviour
     void Start()
     {
         tempwolf.NowHP = 70;
-        tempJaeyoung.Deck = new List<Card>();
         Card card1 = new Card();
-        card1.MechanismList = new List<object>();
-        card1.MechanismList.Add(new AttackOneTarget(tempwolf, 10));
-        card1.MechanismList.Add(new Delay(0.7f));
-        card1.MechanismList.Add(new AttackOneTarget(tempwolf, 10));
-        card1.MechanismList.Add(new Delay(0.7f));
-        card1.MechanismList.Add(new AttackOneTarget(tempwolf, 10));
-        card1.MechanismList.Add(new Delay(0.7f));
-        card1.MechanismList.Add(new AttackOneTarget(tempwolf, 10));
-        card1.MechanismList.Add(new Delay(0.7f));
+        
+        card1.Target = tempwolf;
+        card1.MechanismList.Add(new AttackTargetedOne(10));
+        card1.MechanismList.Add(new Interval(0.7f));
+        card1.MechanismList.Add(new AttackTargetedOne(10));
+        card1.MechanismList.Add(new Interval(0.7f));
+        card1.MechanismList.Add(new AttackTargetedOne(10));
+        card1.MechanismList.Add(new Interval(0.7f));
+        card1.MechanismList.Add(new AttackTargetedOne(10));
 
         tempJaeyoung.Deck.Add(card1);
         tempJaeyoung.Deck[0].UseCard();
