@@ -1,30 +1,36 @@
+using CombatMechanism;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CombatMechanism;
 using UnityEngine;
 using static Define;
 
+public interface IClearAfterBattle { void Clear(); }
+
+/// <summary>
+/// 카드나 몬스터 패턴의 행동들을 정리해둔 NameSpace입니다
+/// 각 행동들을 클래스로 캡슐화하고 담아두어 순서대로 실행합니다.
+/// </summary>
 namespace CombatMechanism
-{ 
+{
+    #region Interfaces
     /// <summary>
     /// 지정된 적에게 효과를 적용합니다.
     /// </summary>
     public interface IToTargetEnemy { void ToTarget(Char Target); }
 
     /// <summary>
-    /// 모든 적에게 다음 효과를 적용합니다.
+    /// 모든 적에게 효과를 적용합니다.
     /// </summary>
     public interface IToAllEnemies { void ToAllEnemies(List<Char> Target); }
     /// <summary>
     /// 카드를 사용한 유저에게 효과를 적용합니다
     /// </summary>
     public interface IToSelf { void ToTarget(Char User); }
-    /// <summary>
-    /// 행동 사이의 간격을 명시합니다
-    /// ex)4연타 사이 간격
-    /// </summary>
-    public interface IEffectInterval { Task ApplyInterval(); }
+    #endregion
 
+
+
+    #region concreteBehavior
     /// <summary>
     /// 적의 HP를 감소시킵니다. 생성할 때 몇의 Damage를 줄지 결정합니다.
     /// </summary>
@@ -49,8 +55,10 @@ namespace CombatMechanism
         }
     }
 
+    #endregion
 
-    public class Interval : IEffectInterval
+    #region Interval, ETC...
+    public class Interval
     {
         public float time;
         public Interval(float time) { this.time = time; }
@@ -59,7 +67,7 @@ namespace CombatMechanism
             await Task.Delay(Mathf.CeilToInt(time * 1000));
         }
     }
-
+    #endregion
 
 }
 
@@ -116,17 +124,21 @@ public static class Define
         {
             foreach (var mechanism in MechanismList)
             {
-                await ExecuteOneStep(mechanism);
+                await ExecuteSteps(mechanism);
             }
         }
 
-        async Task ExecuteOneStep(object mechanism)
+        async Task ExecuteSteps(object mechanism)
         {
             if (mechanism is IToTargetEnemy TargetMonster)
             {
                 TargetMonster.ToTarget(Target);
             }
-            else if (mechanism is IEffectInterval delayMechanism)
+            else if(mechanism is IToAllEnemies AllMonsters)
+            {
+
+            }
+            else if (mechanism is Interval delayMechanism)
             {
                 await delayMechanism.ApplyInterval();
             }
