@@ -20,62 +20,34 @@ namespace CombatMechanism
         AnyEnemy, 
         AllEnemies,
         Self,
-        Allies
+        AnyAlly,
+        AllAllies,
+        MaxCount
     }
-    public abstract class NeedTarget
+
+    public enum EffectType
     {
+        Slash,
+        Burn,
+        Ice,
+        MaxCount
+    }
+
+    [System.Serializable]
+    public class MechanismData
+    {
+        public int EffectID;
         public TargetType TargetType;
-
-        public abstract void EffectToTarget(List<Char> Targets);
-           }
-
-    #region concreteBehavior
-    /// <summary>
-    /// 적의 HP를 감소시킵니다. 생성할 때 몇의 Damage를 줄지 결정합니다.
-    /// </summary>
-    public class AttackTargetedOne : NeedTarget
-    {
-        public Char Target;
-        public float Damage;
-        public AttackTargetedOne(float Damage)
-        { this.Damage = Damage; TargetType = TargetType.TargetEnemy; }
-
-        public override void EffectToTarget(List<Char> Targets)
-        {
-            foreach (var Char in Targets)
-            {
-                Char.NowHP -= Damage;
-            }
-        }
+        public EffectType EffectType;
+        public float Interval;
+        //public Buff Buff;
+        public int Damage;
+        public int Shield;
     }
-
-    public class AttackAllEnemies : NeedTarget
-    {
-        public override void EffectToTarget(List<Char> Targets)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
-    #endregion
-
-    #region Interval, ETC...
-    public class Interval
-    {
-        public float time;
-        public Interval(float time) { this.time = time; }
-        public async Task ApplyInterval()
-        {
-            await Task.Delay(Mathf.CeilToInt(time * 1000));
-        }
-    }
-    #endregion
-
 }
 
 public static class Define
 {
-    public enum EffectType { Slash, Sting, MaxCount}
    public abstract class Char
    {
         public string Name { get; set; }
@@ -132,18 +104,7 @@ public static class Define
 
         async Task ExecuteSteps(object mechanism)
         {
-            if (mechanism is IToTargetEnemy TargetMonster)
-            {
-                TargetMonster.EffectToTarget(Target);
-            }
-            else if(mechanism is IToAllEnemies AllMonsters)
-            {
-                //AllMonsters.
-            }
-            else if (mechanism is Interval delayMechanism)
-            {
-                await delayMechanism.ApplyInterval();
-            }
+            
         }
     }
 

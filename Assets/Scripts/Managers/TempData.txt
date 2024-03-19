@@ -1,0 +1,6 @@
+EffectID	TargetType	EffectType	Shield	Interval	Damage
+1	TargetEnemy	Slash		1	
+2	AnyEnemy	Burn		0.5	10
+3	Self		10		
+4	AllAllies	Burn		1	
+5	TargetEnemy	Slash			20

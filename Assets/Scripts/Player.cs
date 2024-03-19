@@ -17,13 +17,7 @@ public class Player : MonoBehaviour
         tempwolf.NowHP = 70;
         Card card1 = new Card();
         
-        card1.MechanismList.Add(new AttackTargetedOne(10));
-        card1.MechanismList.Add(new Interval(0.7f));
-        card1.MechanismList.Add(new AttackTargetedOne(10));
-        card1.MechanismList.Add(new Interval(0.7f));
-        card1.MechanismList.Add(new AttackTargetedOne(10));
-        card1.MechanismList.Add(new Interval(0.7f));
-        card1.MechanismList.Add(new AttackTargetedOne(10));
+
 
         card1.Target = tempwolf;
         tempJaeyoung.Deck.Add(card1);
