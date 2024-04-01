@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Define;
-using CombatMechanism;
-
 public class Player : MonoBehaviour
 {
     public class Jaeyoung : PlayableChar

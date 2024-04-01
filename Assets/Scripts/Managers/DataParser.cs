@@ -3,7 +3,7 @@ using System.IO;
 using System.Globalization;
 using UnityEngine;
 using System.Reflection;
-using CombatMechanism;
+using static Define;
 
 public class DataParser : MonoBehaviour
 {
@@ -28,7 +28,6 @@ public class DataParser : MonoBehaviour
         {
             string[] columns = lines[i].Split('\t');
             MechanismData data = new MechanismData();
-            Debug.Log($"{i}За");
             for (int j = 0; j < headers.Length; j++)
             {
                 if (columns[j] == "") continue;
@@ -36,7 +35,6 @@ public class DataParser : MonoBehaviour
                 PropertyInfo propertyInfo = typeof(MechanismData).GetProperty(headers[j]);
                 FieldInfo fieldInfo = typeof(MechanismData).GetField(headers[j]);
 
-                Debug.Log($"{j}ї­ {headers[j]}");
 
                 if (propertyInfo != null)
                 {

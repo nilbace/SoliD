@@ -1,55 +1,25 @@
-using CombatMechanism;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using static Define;
-
-namespace Managers
-{
-    public interface IClearAfterBattle { void Clear(); }
-}
-
-/// <summary>
-/// 카드나 몬스터 패턴의 행동들을 정리해둔 NameSpace입니다
-/// 각 행동들을 클래스로 캡슐화하고 담아두어 순서대로 실행합니다.
-/// </summary>
-namespace CombatMechanism
-{
-    public enum TargetType { 
-        TargetEnemy,
-        AnyEnemy, 
-        AllEnemies,
-        Self,
-        AnyAlly,
-        AllAllies,
-        MaxCount
-    }
-
-    public enum EffectType
-    {
-        Slash,
-        Burn,
-        Ice,
-        MaxCount
-    }
-
-    [System.Serializable]
-    public class MechanismData
-    {
-        public int EffectID;
-        public TargetType TargetType;
-        public EffectType EffectType;
-        public float Interval;
-        //public Buff Buff;
-        public int Damage;
-        public int Shield;
-    }
-}
 
 public static class Define
 {
-   public abstract class Char
-   {
+    public enum CharName
+    {
+        Minju,
+        Seolha,
+        Yerin
+    }
+
+    public enum CharNameKor
+    {
+        홍민주,
+        최설하,
+        황예린,
+    }
+
+    public abstract class Char : MonoBehaviour
+    {
         public string Name { get; set; }
         public float MaxHP { get; set; }
         float _nowHP;
@@ -81,6 +51,36 @@ public static class Define
 
     }
 
+    public enum TargetType
+    {
+        TargetEnemy,
+        AnyEnemy,
+        AllEnemies,
+        Self,
+        AnyAlly,
+        AllAllies,
+        MaxCount
+    }
+
+    public enum EffectType
+    {
+        Slash,
+        Burn,
+        Ice,
+        MaxCount
+    }
+
+    [System.Serializable]
+    public class MechanismData
+    {
+        public int EffectID;
+        public TargetType TargetType;
+        public EffectType EffectType;
+        public float Interval;
+        //public Buff Buff;
+        public int Damage;
+        public int Shield;
+    }
     public class Card 
     {
         public List<object> MechanismList { get; set; }
@@ -106,6 +106,12 @@ public static class Define
         {
             
         }
+    }
+
+    public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+    {
+        public static T Inst { get; private set; }
+        protected virtual void Awake() => Inst = FindObjectOfType(typeof(T)) as T;
     }
 
 }
