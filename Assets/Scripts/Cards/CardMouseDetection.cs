@@ -2,15 +2,37 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class MouseDetection : MonoBehaviour
+public class CardMouseDetection : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public float Duration;
-    // 마우스가 콜라이더 안으로 들어갔을 때 실행될 함수
     void OnMouseEnter()
     {
         PointEnter();
+    }
+
+    void OnMouseDown()
+    {
+        transform.localScale = Vector3.one * 0.7f;
+        transform.rotation = Quaternion.identity;
+        if (DOTween.IsTweening(transform)) // 만약 현재 이 게임 오브젝트에 대해 Dotween이 실행 중이라면
+        {
+            DOTween.Kill(transform); // 해당 Dotween을 취소
+        }
+    }
+
+    void OnMouseDrag()
+    {
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10); // 마우스 위치
+        Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition); // 월드 좌표로 변환
+        transform.position = objPosition; // 카드의 transform을 마우스를 따라가게 함
+    }
+
+    void OnMouseUpAsButton()
+    {
+        HandManager.Inst.ArrangeCards();
     }
 
     // 마우스가 콜라이더를 떠났을 때 실행될 함수

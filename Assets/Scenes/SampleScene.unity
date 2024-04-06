@@ -3877,8 +3877,9 @@ MonoBehaviour:
   cardSpacing: 11.23
   startingSortingOrder: 0
   sortingOrderIncrement: 10
-  AngleOffset: 35
+  AngleOffset: 9
   MoveDuration: 0.66
+  radius: 30
 --- !u!4 &1189276705
 Transform:
   m_ObjectHideFlags: 0

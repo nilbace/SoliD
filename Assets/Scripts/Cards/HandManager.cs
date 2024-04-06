@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class HandManager : MonoBehaviour
+public class HandManager : MonoSingleton<HandManager>
 {
     public GameObject cardPrefab;
     public Transform bottomPosition;
@@ -15,6 +15,7 @@ public class HandManager : MonoBehaviour
     public int sortingOrderIncrement = 10;
     public int AngleOffset;
     public float MoveDuration;
+    public float radius = 30.0f; // 임의로 설정한 반지름 값
 
     private List<GameObject> cards = new List<GameObject>();
 
@@ -24,6 +25,14 @@ public class HandManager : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab);
         cards.Add(newCard);
         ArrangeCards();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            AddCardToHand();
+        }
     }
 
     public void DiscardCardFromHand(int index)
@@ -37,16 +46,16 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    private void ArrangeCards()
+    public void ArrangeCards()
     {
         int totalCards = cards.Count;
         // 아치를 형성하는 각도 범위
-        float startAngle = Mathf.Deg2Rad * -AngleOffset; // 60도를 라디안으로 변환
-        float endAngle = Mathf.Deg2Rad * AngleOffset; // 120도를 라디안으로 변환
+        float startAngle = Mathf.Deg2Rad * -AngleOffset;
+        float endAngle = Mathf.Deg2Rad * AngleOffset; 
 
         // 반지름 계산이 필요하다면 여기서 추가할 수 있습니다. 예제에서는 간단화를 위해 생략.
         // 예를 들어, 둥글게 배치할 때의 아치 반지름을 지정할 수 있습니다.
-        float radius = 10.0f; // 임의로 설정한 반지름 값
+        radius = 30.0f; // 임의로 설정한 반지름 값
 
         for (int i = 0; i < totalCards; i++)
         {
@@ -54,13 +63,13 @@ public class HandManager : MonoBehaviour
             float angle = Mathf.Lerp(startAngle, endAngle, t);
 
             // 원형 아치 위의 x, y 위치 계산 (z는 사용하지 않거나 다른 용도로 사용 가능)
-            Vector3 cardPosition = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle), 0) * radius;
+            Vector3 cardPosition = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle) -0.8f, 0.01f * i) * radius;
+
             // 아치의 중심 위치에 대한 조정이 필요하다면 여기서 centerPosition을 더합니다.
             Vector3 targetPosition = centerPosition.position + cardPosition;
             cards[i].transform.DOMove(targetPosition, MoveDuration);
 
             // 카드가 아치를 따라 올바른 방향을 가리키도록 z축 회전 조정
-            //cards[i].transform.rotation = Quaternion.Euler(0, 0, -(angle * Mathf.Rad2Deg));
             float targetRotation = -(angle * Mathf.Rad2Deg);
             cards[i].transform.DORotate(new Vector3(0, 0, targetRotation), MoveDuration);
 
