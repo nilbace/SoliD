@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class CardMouseDetection : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteRenderer _glowingBorder;
     public float Duration;
     void OnMouseEnter()
     {
@@ -45,17 +45,17 @@ public class CardMouseDetection : MonoBehaviour
     void PointEnter()
     {
         transform.DOScale(new Vector3(0.7f, 0.7f), Duration);
-        Color originalColor = spriteRenderer.color;
-        Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 1.0f); // 알파값을 1로 설정
-        spriteRenderer.DOColor(targetColor, Duration);
+        //Color originalColor = _glowingBorder.color;
+        //Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 1.0f); // 테두리 잔상을 빛나게
+        //_glowingBorder.DOColor(targetColor, Duration);
     }
 
     void PointerExit()
     {
         transform.DOScale(new Vector3(0.5f, 0.5f), Duration);
-        Color originalColor = spriteRenderer.color;
-        Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f); // 알파값을 1로 설정
-        spriteRenderer.DOColor(targetColor, Duration);
+        //Color originalColor = _glowingBorder.color;
+        //Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f); // 테두리 잔상을 투명하게 안보이게
+        //_glowingBorder.DOColor(targetColor, Duration);
     }
     
 }

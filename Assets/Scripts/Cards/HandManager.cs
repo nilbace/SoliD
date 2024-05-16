@@ -17,6 +17,11 @@ public class HandManager : MonoSingleton<HandManager>
     public float MoveDuration;
     public float radius = 30.0f; // 임의로 설정한 반지름 값
 
+    [Header("카드 1,2,3장일 떄 위치")]
+    [SerializeField] private float _tValueForOneCard;
+    [SerializeField] private Vector2 _tValueForTwoCards;
+    [SerializeField] private Vector3 _tValueForThreeCards;
+
     private List<GameObject> cards = new List<GameObject>();
 
     [ContextMenu("카드 추가")]
@@ -46,6 +51,51 @@ public class HandManager : MonoSingleton<HandManager>
         }
     }
 
+    /// <summary>
+    /// 카드가 3장 미만일때의 적절한 위치 처리용 함수
+    /// </summary>
+    /// <param name="i"></param>
+    /// <returns></returns>
+    private float GetProperT_Value(int i)
+    {
+        if (cards.Count == 1)
+        {
+            return _tValueForOneCard;
+        }
+        else if (cards.Count == 2)
+        {
+            if (i == 0)
+            {
+                return _tValueForTwoCards.x;
+            }
+            else
+            {
+                return _tValueForTwoCards.y;
+            }
+        }
+        else if (cards.Count == 3)
+        {
+            if (i == 0)
+            {
+                return _tValueForThreeCards.x;
+            }
+            else if (i == 1)
+            {
+                return _tValueForThreeCards.y;
+            }
+            else
+            {
+                return _tValueForThreeCards.z;
+            }
+        }
+        else
+        {
+            // 예외 처리: 1, 2, 3장이 아닌 경우의 기본값 반환
+            return 0.5f;
+        }
+    }
+
+
     public void ArrangeCards()
     {
         int totalCards = cards.Count;
@@ -59,7 +109,7 @@ public class HandManager : MonoSingleton<HandManager>
 
         for (int i = 0; i < totalCards; i++)
         {
-            float t = totalCards > 1 ? i / (float)(totalCards - 1) : 0.5f;
+            float t = totalCards > 3 ? i / (float)(totalCards - 1) : GetProperT_Value(i);
             float angle = Mathf.Lerp(startAngle, endAngle, t);
 
             // 원형 아치 위의 x, y 위치 계산 (z는 사용하지 않거나 다른 용도로 사용 가능)
