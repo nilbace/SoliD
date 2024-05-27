@@ -4,14 +4,42 @@ using System.Globalization;
 using UnityEngine;
 using System.Reflection;
 using static Define;
+using UnityEngine.Networking;
+using System.Collections;
 
 public class DataParser : MonoBehaviour
 {
     public List<MechanismData> list;
     public TextAsset datas;
+    private const string URL_CardData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=0&range=A:F";
+    private const string URL_CardEffectData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=1198669234&range=A:F";
+
+
     private void Start()
     {
         list = ParseMechanismDataFromTSV(datas);
+        StartCoroutine(RequestAndSetDayDatas(URL_CardData));
+    }
+
+    public IEnumerator RequestAndSetDayDatas(string www)
+    {
+        UnityWebRequest wwww = UnityWebRequest.Get(www);
+        yield return wwww.SendWebRequest();
+
+        string data = wwww.downloadHandler.text;
+        Debug.Log(data);
+        string[] lines = data.Substring(0, data.Length).Split('\n');
+        //Queue<string> stringqueue = new Queue<string>();
+
+        //foreach (string line in lines)
+        //{
+        //    stringqueue.Enqueue(line);
+        //}
+        //for (int i = 0; i < (int)BroadCastType.MaxCount_Name; i++)
+        //{
+        //    ProcessStringToList(ContentType.BroadCast, i, stringqueue.Dequeue());
+        //}
+       
     }
 
     public List<MechanismData> ParseMechanismDataFromTSV(TextAsset datas)
