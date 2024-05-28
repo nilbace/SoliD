@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Inst { get { Init(); return s_instance; } }
 
     PoolManager _pool = new PoolManager();
+    BattleManager _battle = new BattleManager();
     public static PoolManager Pool { get { return Inst._pool; } }
+    public static BattleManager Battle { get { return Inst._battle; } }
 
     private void Awake()
     {

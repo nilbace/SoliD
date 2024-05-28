@@ -48,6 +48,9 @@ public class UnitBase : MonoBehaviour
 
     public virtual void Dead() { }
 
-
+    public void GetDamage(int amount)
+    {
+        NowHp -= amount;
+    }
 
 }

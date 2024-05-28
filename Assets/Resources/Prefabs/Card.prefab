@@ -411,6 +411,7 @@ GameObject:
   - component: {fileID: 2577860763301926997}
   - component: {fileID: 399208237}
   - component: {fileID: 399208235}
+  - component: {fileID: 9142163225628598800}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -486,6 +487,28 @@ PolygonCollider2D:
       - {x: 0.97768164, y: 3.7996902}
       - {x: 0.67947423, y: 5.1530924}
       - {x: -0.7427435, y: 5.1301527}
+--- !u!114 &9142163225628598800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577860763301926995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce6e3924b37f7348844143d925a9318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardData:
+    CardType: 0
+    CardOwner: 0
+    CardColor: 0
+    CardTier: 0
+    CardCost: 0
+    CardName: 
+    CardInfoText: 
+    NeedTarget: 0
+    CardSpriteNameString: 
 --- !u!1 &2577860763767568455
 GameObject:
   m_ObjectHideFlags: 0
