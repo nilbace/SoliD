@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7656427673581073006}
   - component: {fileID: 7393365457317828225}
   m_Layer: 0
-  m_Name: line_magenta
+  m_Name: line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 140872935
+  m_SortingLayer: 1
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: feff7b996aa116a4f9157ee55fcc5c4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 3043394846114078125}
   - component: {fileID: 794729376971465865}
   m_Layer: 0
-  m_Name: cost_magenta
+  m_Name: cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,8 +150,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 140872935
+  m_SortingLayer: 1
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 182c31cec915a4044bb1ef97008ff66e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 2577860762863773214}
   - component: {fileID: 2577860762863773215}
   m_Layer: 5
-  m_Name: text
+  m_Name: TMP_Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,7 +357,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 140872935
   m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!114 &2577860763062453917
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875f96ed259f4b547aa45c306a78fe09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _glowingBorder: {fileID: 0}
+  _glowingBorder: {fileID: 1304346173613379575}
   Duration: 0.58
 --- !u!60 &399208235
 PolygonCollider2D:
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce6e3924b37f7348844143d925a9318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardData:
+  thisCardData:
     CardType: 0
     CardOwner: 0
     CardColor: 0
@@ -509,6 +509,20 @@ MonoBehaviour:
     CardInfoText: 
     NeedTarget: 0
     CardSpriteNameString: 
+    CardEffectList: []
+  CardUser: {fileID: 0}
+  Sprites_Cost:
+  - {fileID: 21300000, guid: 182c31cec915a4044bb1ef97008ff66e, type: 3}
+  - {fileID: 21300000, guid: af5ad0e5ee0436c46af1860e8c8ba3ea, type: 3}
+  - {fileID: 21300000, guid: 64beeb5195d4e8a4698754dddde59af3, type: 3}
+  - {fileID: 21300000, guid: 182c31cec915a4044bb1ef97008ff66e, type: 3}
+  Sprites_Line:
+  - {fileID: 21300000, guid: feff7b996aa116a4f9157ee55fcc5c4c, type: 3}
+  - {fileID: 21300000, guid: 9f6fa553b5daa10478bdb08c831bd7aa, type: 3}
+  - {fileID: 21300000, guid: 9f8b27ef8c065bf49afbdc46ca64ad5f, type: 3}
+  - {fileID: 21300000, guid: bd5fa044995e051438a1eca10393ef82, type: 3}
+  SR_Cost: {fileID: 0}
+  SR_Line: {fileID: 0}
 --- !u!1 &2577860763767568455
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +535,7 @@ GameObject:
   - component: {fileID: 2577860763767568440}
   - component: {fileID: 2577860763767568441}
   m_Layer: 5
-  m_Name: name
+  m_Name: TMP_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,7 +669,7 @@ GameObject:
   - component: {fileID: 2577860763845397475}
   - component: {fileID: 2577860763845397472}
   m_Layer: 5
-  m_Name: energy
+  m_Name: TMP_Cost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -845,11 +859,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 140872935
+  m_SortingLayer: 1
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ceab9c0e733147c4bae9b3596966c896, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -927,8 +941,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 140872935
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 436f2a201cdfeeb4d84acf0153c23db6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1009,8 +1023,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 140872935
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 01c9c659a9b259e4bbee4fc82c876821, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1091,8 +1105,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 140872935
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 73a2eb2f22dc995418af327e5473280f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

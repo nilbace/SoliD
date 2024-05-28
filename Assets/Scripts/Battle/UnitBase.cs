@@ -53,4 +53,9 @@ public class UnitBase : MonoBehaviour
         NowHp -= amount;
     }
 
+    public void Heal(int amount)
+    {
+        NowHp += amount;
+    }
+
 }
