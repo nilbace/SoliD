@@ -25,6 +25,11 @@ public class CardGO : MonoBehaviour
 
     public void UseCard()
     {
+        StartCoroutine(UseCardCor());
+    }
+
+    IEnumerator UseCardCor()
+    {
         //CardOwner가 맨 앞으로 튀어나옴
 
         //카드 효과들을 차례대로 발동함
@@ -33,7 +38,7 @@ public class CardGO : MonoBehaviour
             //Interval효과라면 그 시간만큼 대기
             if(cardEffectData.TargetType == E_TargetType.None && cardEffectData.CardEffectType == E_CardEffectType.Interval)
             {
-                //그 시간만큼 대기
+                yield return new WaitForSeconds(cardEffectData.Amount);
             }
 
             //대상 타겟들을 받아 와서

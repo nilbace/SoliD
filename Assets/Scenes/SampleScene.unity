@@ -4984,6 +4984,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 4665935416941296186, guid: a543d93e2468f5d43a5abebb1f9a2a3c, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4665935417275652891, guid: a543d93e2468f5d43a5abebb1f9a2a3c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
