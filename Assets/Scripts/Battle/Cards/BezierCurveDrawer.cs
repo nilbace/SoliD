@@ -19,17 +19,6 @@ public class BezierCurveDrawer : MonoBehaviour
         lineRenderer.positionCount = curveResolution; // 선의 점 개수 설정
     }
 
-    //void Update()
-    //{
-    //    if (Input.GetMouseButton(0)) // 마우스 왼쪽 버튼을 누르고 있는 동안
-    //    {
-    //        DrawCurveFromScreenBottom();
-    //    }
-    //    else
-    //    {
-    //        lineRenderer.positionCount = 0; // 마우스를 놓으면 선을 숨깁니다.
-    //    }
-    //}
 
     public void DrawCurveFromScreenBottom()
     {
