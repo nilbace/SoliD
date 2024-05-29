@@ -454,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _glowingBorder: {fileID: 1304346173613379575}
   Duration: 0.58
+  YOffset: -2.04
 --- !u!60 &399208235
 PolygonCollider2D:
   m_ObjectHideFlags: 0

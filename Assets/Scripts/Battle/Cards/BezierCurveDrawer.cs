@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class BezierCurveDrawer : MonoBehaviour
 {
-    private LineRenderer lineRenderer;
+    public static BezierCurveDrawer Inst;
+    public LineRenderer lineRenderer;
     public int curveResolution = 20; // 곡선의 해상도, 더 높을수록 부드러운 곡선이 됩니다.
     public Vector3 ControlPoint;
 
+    private void Awake()
+    {
+        Inst = this;
+    }
     void Start()
     {
         lineRenderer = gameObject.GetComponent<LineRenderer>();
         lineRenderer.positionCount = curveResolution; // 선의 점 개수 설정
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButton(0)) // 마우스 왼쪽 버튼을 누르고 있는 동안
-        {
-            DrawCurveFromScreenBottom();
-        }
-        else
-        {
-            lineRenderer.positionCount = 0; // 마우스를 놓으면 선을 숨깁니다.
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetMouseButton(0)) // 마우스 왼쪽 버튼을 누르고 있는 동안
+    //    {
+    //        DrawCurveFromScreenBottom();
+    //    }
+    //    else
+    //    {
+    //        lineRenderer.positionCount = 0; // 마우스를 놓으면 선을 숨깁니다.
+    //    }
+    //}
 
-    void DrawCurveFromScreenBottom()
+    public void DrawCurveFromScreenBottom()
     {
         Vector3 startPos = new Vector3(Screen.width / 2, 0, 0); // 화면 가운데 하단
         startPos = Camera.main.ScreenToWorldPoint(startPos + new Vector3(0, 0, 10)); // 화면 좌표를 월드 좌표로 변환

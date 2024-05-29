@@ -7,9 +7,10 @@ public class CardMouseDetection : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _glowingBorder;
     public float Duration;
+    public float YOffset;
     void OnMouseEnter()
     {
-        PointEnter();
+        GlowBorder();
     }
 
     void OnMouseDown()
@@ -27,21 +28,47 @@ public class CardMouseDetection : MonoBehaviour
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10); // 마우스 위치
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition); // 월드 좌표로 변환
         transform.position = objPosition; // 카드의 transform을 마우스를 따라가게 함
+
+
+        if (Input.GetMouseButton(0)) // 마우스 왼쪽 버튼을 누르고 있는 동안
+        {
+            if(transform.position.y > YOffset)
+            {
+                BezierCurveDrawer.Inst.DrawCurveFromScreenBottom();
+            }
+            else
+            {
+                BezierCurveDrawer.Inst.lineRenderer.positionCount = 0; //선을 숨깁니다.
+            }
+        }
     }
 
     void OnMouseUpAsButton()
     {
+        BezierCurveDrawer.Inst.lineRenderer.positionCount = 0; //선을 숨깁니다.
         HandManager.Inst.ArrangeCards();
+    }
+
+    void HideCard()
+    {
+        DOTween.Kill(transform);
+        SpriteRenderer[] CardSRs = GetComponentsInChildren<SpriteRenderer>();
+        foreach(SpriteRenderer Sr in CardSRs)
+        {
+            //알파값 0으로
+        }
+        TMPro.TMP_Text[] Texts = GetComponentsInChildren<TMPro.TMP_Text>();
+        //텍스트들의 알파값도 모두 1로
     }
 
     // 마우스가 콜라이더를 떠났을 때 실행될 함수
     void OnMouseExit()
     {
-        PointerExit();
+        HideBorder();
     }
 
 
-    void PointEnter()
+    void GlowBorder()
     {
         transform.DOScale(new Vector3(0.7f, 0.7f), Duration);
         Color originalColor = _glowingBorder.color;
@@ -49,7 +76,7 @@ public class CardMouseDetection : MonoBehaviour
         _glowingBorder.DOColor(targetColor, Duration);
     }
 
-    void PointerExit()
+    void HideBorder()
     {
         transform.DOScale(new Vector3(0.5f, 0.5f), Duration);
         Color originalColor = _glowingBorder.color;
