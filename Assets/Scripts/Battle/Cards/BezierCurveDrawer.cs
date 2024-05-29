@@ -55,7 +55,7 @@ public class BezierCurveDrawer : MonoBehaviour
         Vector3 p = uu * p0; // 첫 번째 항
         p += 2 * u * t * p1; // 두 번째 항
         p += tt * p2; // 세 번째 항
-
+        p.z = -1;
         return p;
     }
 
