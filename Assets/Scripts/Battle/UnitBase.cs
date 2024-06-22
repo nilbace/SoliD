@@ -11,7 +11,7 @@ public class UnitBase : MonoBehaviour
     public bool IsChained;
     public List<EffectBase> ActiveEffects = new List<EffectBase>();
 
-    public bool HasEffect(E_EffectType effectType)
+    public bool HasEffect(E_CardEffectType effectType)
     {
         return ActiveEffects.Any(e => e.Type == effectType);
     }

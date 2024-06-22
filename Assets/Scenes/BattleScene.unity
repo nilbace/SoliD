@@ -1002,6 +1002,7 @@ GameObject:
   - component: {fileID: 516098424}
   - component: {fileID: 516098423}
   - component: {fileID: 516098422}
+  - component: {fileID: 516098425}
   m_Layer: 0
   m_Name: '@GameManager'
   m_TagString: Untagged
@@ -1021,8 +1022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b4c1f562105df14d92691cbd5ae8cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  list: []
+  CardEffectList: []
   datas: {fileID: 4900000, guid: fc2d1b9597e18964aad0877ac76cff9b, type: 3}
+  TempDeck: {fileID: 516098425}
 --- !u!114 &516098423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,6 +1051,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &516098425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516098421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03d9c44f13e03740b60150765fe8538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cards: []
 --- !u!1 &516789332
 GameObject:
   m_ObjectHideFlags: 0

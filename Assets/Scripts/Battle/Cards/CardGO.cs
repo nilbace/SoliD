@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum E_CardType { Attack, Defence, Skill }
-public enum E_CardOwner { Magenta, Cyan, Yellow }
-public enum E_CardColor { Magenta, Cyan, Yellow, Black }
-public enum E_CardTier { Normal, Rare }
 public class CardGO : MonoBehaviour
 {
     public CardData thisCardData;
@@ -153,17 +149,3 @@ public class CardGO : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class CardData
-{
-    public E_CardType CardType;
-    public E_CardOwner CardOwner;
-    public E_CardColor CardColor;
-    public E_CardTier CardTier;
-    public int CardCost;
-    public string CardName;
-    public string CardInfoText;
-    public bool NeedTarget;
-    public string CardSpriteNameString;
-    public List<CardEffectData> CardEffectList;
-}

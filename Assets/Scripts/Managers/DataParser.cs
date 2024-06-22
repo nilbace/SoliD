@@ -3,49 +3,94 @@ using System.IO;
 using System.Globalization;
 using UnityEngine;
 using System.Reflection;
-using static Define;
 using UnityEngine.Networking;
 using System.Collections;
+using System;
 
 public class DataParser : MonoBehaviour
 {
-    public List<MechanismData> list;
+    public List<CardEffectData> CardEffectList;
     public TextAsset datas;
     private const string URL_CardData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=0&range=A2:K32";
     private const string URL_CardEffectData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=1198669234&range=B2:D26";
 
+    public DeckManager TempDeck;
 
     private void Start()
     {
-        list = ParseMechanismDataFromTSV(datas);
-        StartCoroutine(RequestAndSetDayDatas(URL_CardData));
-        StartCoroutine(RequestAndSetDayDatas(URL_CardEffectData));
+        //StartCoroutine(RequestAndSetDayDatas(URL_CardData));
+        StartCoroutine(RequestAndSetDayDatas(URL_CardEffectData, ProcessCardEffectData_To_List));
     }
 
-    public IEnumerator RequestAndSetDayDatas(string www)
+    public IEnumerator RequestAndSetDayDatas(string url, Action<string> processData)
     {
-        UnityWebRequest wwww = UnityWebRequest.Get(www);
-        yield return wwww.SendWebRequest();
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
 
-        string data = wwww.downloadHandler.text;
-        Debug.Log(data);
-        string[] lines = data.Substring(0, data.Length).Split('\n');
-        //Queue<string> stringqueue = new Queue<string>();
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError(www.error);
+        }
+        else
+        {
+            string data = www.downloadHandler.text;
+            Debug.Log(data);
+            string[] lines = data.Split('\n');
 
-        //foreach (string line in lines)
-        //{
-        //    stringqueue.Enqueue(line);
-        //}
-        //for (int i = 0; i < (int)BroadCastType.MaxCount_Name; i++)
-        //{
-        //    ProcessStringToList(ContentType.BroadCast, i, stringqueue.Dequeue());
-        //}
-       
+            foreach (string line in lines)
+            {
+                processData(line);
+            }
+        }
     }
 
-    public List<MechanismData> ParseMechanismDataFromTSV(TextAsset datas)
+    void ProcessCardEffectData_To_List(string data)
     {
-        List<MechanismData> dataList = new List<MechanismData>();
+        string[] lines = data.Substring(0, data.Length).Split('\t');
+        CardEffectData cardEffect = new CardEffectData();
+        if (!int.TryParse(lines[0], out cardEffect.EffectID))
+        {
+            Debug.LogError($"{lines[0]} : Failed to parse the string to EffectID.");
+        }
+        if (!Enum.TryParse(lines[1], out cardEffect.TargetType))
+        {
+            Debug.LogError($"{lines[1]} : Failed to parse the string to TargetType enum.");
+        }
+        if (!Enum.TryParse(lines[2], out cardEffect.CardEffectType))
+        {
+            Debug.LogError($"{lines[2]} : Failed to parse the string to CardEffectType enum.");
+        }
+        CardEffectList.Add(cardEffect);
+    }
+
+    void ProcessCard_To_Deck(string data)
+    {
+        string[] lines = data.Substring(0, data.Length).Split('\t');
+        CardEffectData cardEffect = new CardEffectData();
+        if (!int.TryParse(lines[0], out cardEffect.EffectID))
+        {
+            Debug.LogError($"{lines[0]} : Failed to parse the string to EffectID.");
+        }
+        if (!Enum.TryParse(lines[1], out cardEffect.TargetType))
+        {
+            Debug.LogError($"{lines[1]} : Failed to parse the string to TargetType enum.");
+        }
+        if (!Enum.TryParse(lines[2], out cardEffect.CardEffectType))
+        {
+            Debug.LogError($"{lines[2]} : Failed to parse the string to CardEffectType enum.");
+        }
+        CardEffectList.Add(cardEffect);
+    }
+
+
+    /// <summary>
+    /// 현재 안씀
+    /// </summary>
+    /// <param name="datas"></param>
+    /// <returns></returns>
+    public List<CardEffectData> ParseMechanismDataFromTSV(TextAsset datas)
+    {
+        List<CardEffectData> dataList = new List<CardEffectData>();
 
         // 파일에서 모든 줄을 읽어옵니다.
         string[] lines = datas.text.Split('\n');
@@ -56,13 +101,13 @@ public class DataParser : MonoBehaviour
         for (int i = 1; i < lines.Length; i++) // 데이터 행을 순회합니다.
         {
             string[] columns = lines[i].Split('\t');
-            MechanismData data = new MechanismData();
+            CardEffectData data = new CardEffectData();
             for (int j = 0; j < headers.Length; j++)
             {
                 if (columns[j] == "") continue;
 
-                PropertyInfo propertyInfo = typeof(MechanismData).GetProperty(headers[j]);
-                FieldInfo fieldInfo = typeof(MechanismData).GetField(headers[j]);
+                PropertyInfo propertyInfo = typeof(CardEffectData).GetProperty(headers[j]);
+                FieldInfo fieldInfo = typeof(CardEffectData).GetField(headers[j]);
 
 
                 if (propertyInfo != null)

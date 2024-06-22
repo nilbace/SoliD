@@ -21,10 +21,10 @@ public class GameManager : MonoBehaviour
     {
         if (s_instance == null)
         {
-            GameObject go = GameObject.Find("@Managers");
+            GameObject go = GameObject.Find("@GameManager");
             if (go == null)
             {
-                go = new GameObject { name = "@Managers" };
+                go = new GameObject { name = "@GameManager" };
                 go.AddComponent<GameManager>();
             }
 
