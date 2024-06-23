@@ -2253,7 +2253,6 @@ GameObject:
   m_Component:
   - component: {fileID: 882303956}
   - component: {fileID: 882303955}
-  - component: {fileID: 882303954}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Monster
@@ -2261,18 +2260,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &882303954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882303953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d20041d48ac64cb4b8a6e60f695750cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &882303955
 SpriteRenderer:
   m_ObjectHideFlags: 0
