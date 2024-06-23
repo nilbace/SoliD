@@ -10,13 +10,20 @@ public class CardGO : MonoBehaviour
     public Sprite[] Sprites_Line;
     public SpriteRenderer SR_Cost;
     public SpriteRenderer SR_Line;
-    
+    public TMPro.TMP_Text TMP_Name;
+    public TMPro.TMP_Text TMP_Info;
+    public TMPro.TMP_Text TMP_Cost;
+
+
     [ContextMenu("초기 설정")]
     public void SetCardSprite()
     {
         int index = (int)thisCardData.CardColor;
         SR_Cost.sprite = Sprites_Cost[index];
         SR_Line.sprite = Sprites_Line[index];
+        TMP_Name.text = thisCardData.CardName;
+        TMP_Info.text = thisCardData.CardInfoText;
+        TMP_Cost.text = thisCardData.CardCost.ToString();
     }
 
     public void UseCard()

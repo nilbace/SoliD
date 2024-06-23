@@ -23,11 +23,17 @@ public class HandManager : MonoSingleton<HandManager>
     [SerializeField] private Vector3 _tValueForThreeCards;
 
     private List<GameObject> cards = new List<GameObject>();
+    public DeckManager TempDeck;
+    private int cardIndex;
 
     [ContextMenu("카드 추가")]
     public void AddCardToHand()
     {
+        if (TempDeck.Cards.Count == 0) return;
         GameObject newCard = Instantiate(cardPrefab);
+        var newcardData = newCard.GetComponent<CardGO>();
+        newcardData.thisCardData = TempDeck.Cards[cardIndex++];
+        newcardData.SetCardSprite();
         cards.Add(newCard);
         ArrangeCards();
     }

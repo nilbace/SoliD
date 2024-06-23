@@ -74,7 +74,17 @@ public class CardEffectData
     public int EffectID;
     public E_TargetType TargetType;
     public E_CardEffectType CardEffectType;
-    public int Amount;
+    public float Amount;
+
+    public CardEffectData(CardEffectData cardEffectData)
+    {
+        EffectID = cardEffectData.EffectID;
+        TargetType = cardEffectData.TargetType;
+        CardEffectType = cardEffectData.CardEffectType;
+        Amount = cardEffectData.Amount;
+    }
+
+    public CardEffectData() { }
 }
 [System.Serializable]
 public class CardData
@@ -89,6 +99,11 @@ public class CardData
     public bool NeedTarget;
     public string CardSpriteNameString;
     public List<CardEffectData> CardEffectList;
+
+    public CardData()
+    {
+        CardEffectList = new List<CardEffectData>();
+    }
 }
 
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour

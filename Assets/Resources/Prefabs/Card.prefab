@@ -538,8 +538,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9f6fa553b5daa10478bdb08c831bd7aa, type: 3}
   - {fileID: 21300000, guid: 9f8b27ef8c065bf49afbdc46ca64ad5f, type: 3}
   - {fileID: 21300000, guid: bd5fa044995e051438a1eca10393ef82, type: 3}
-  SR_Cost: {fileID: 0}
-  SR_Line: {fileID: 0}
+  SR_Cost: {fileID: 794729376971465865}
+  SR_Line: {fileID: 7393365457317828225}
+  TMP_Name: {fileID: 2577860763767568441}
+  TMP_Info: {fileID: 2577860762863773215}
+  TMP_Cost: {fileID: 2577860763845397472}
 --- !u!1 &2577860763767568455
 GameObject:
   m_ObjectHideFlags: 0

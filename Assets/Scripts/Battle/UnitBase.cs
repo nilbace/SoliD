@@ -48,12 +48,12 @@ public class UnitBase : MonoBehaviour
 
     public virtual void Dead() { }
 
-    public void GetDamage(int amount)
+    public void GetDamage(float amount)
     {
         NowHp -= amount;
     }
 
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         NowHp += amount;
     }
