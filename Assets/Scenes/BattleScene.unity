@@ -278,7 +278,7 @@ Transform:
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &66934388
 GameObject:
@@ -1023,7 +1023,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardEffectList: []
-  datas: {fileID: 4900000, guid: fc2d1b9597e18964aad0877ac76cff9b, type: 3}
   TempDeck: {fileID: 516098425}
 --- !u!114 &516098423
 MonoBehaviour:
@@ -1049,7 +1048,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &516098425
 MonoBehaviour:
@@ -1692,7 +1691,7 @@ Transform:
   m_Children:
   - {fileID: 135273699}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &721607905
 GameObject:
@@ -3240,6 +3239,7 @@ MonoBehaviour:
   _tValueForOneCard: 0.5
   _tValueForTwoCards: {x: 0.35, y: 0.76}
   _tValueForThreeCards: {x: 0.12, y: 0.44, z: 0.79}
+  TempDeck: {fileID: 516098425}
 --- !u!4 &1189276705
 Transform:
   m_ObjectHideFlags: 0
@@ -3255,7 +3255,7 @@ Transform:
   - {fileID: 1549926321}
   - {fileID: 1117336903}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1196733505
 GameObject:
@@ -3710,7 +3710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1418173188
 GameObject:
@@ -4428,7 +4428,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1783851565
 GameObject:
@@ -4585,7 +4585,7 @@ Transform:
   m_LocalScale: {x: 3.386488, y: 3.386488, z: 3.386488}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858536610
 GameObject:
