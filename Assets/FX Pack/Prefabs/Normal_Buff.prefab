@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3919445155170265293}
   - component: {fileID: 3919445155170265292}
   m_Layer: 0
-  m_Name: hit_00210
+  m_Name: Normal_Buff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
