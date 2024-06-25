@@ -8,6 +8,7 @@ public class BezierCurveDrawer : MonoBehaviour
     public LineRenderer lineRenderer;
     public int curveResolution = 20; // 곡선의 해상도, 더 높을수록 부드러운 곡선이 됩니다.
     public Vector3 ControlPoint;
+    public float startYpoz;
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class BezierCurveDrawer : MonoBehaviour
 
     public void DrawCurveFromScreenBottom()
     {
-        Vector3 startPos = new Vector3(Screen.width / 2, 0, 0); // 화면 가운데 하단
+        Vector3 startPos = new Vector3(Screen.width / 2, startYpoz, 0); // 화면 가운데 하단
         startPos = Camera.main.ScreenToWorldPoint(startPos + new Vector3(0, 0, 10)); // 화면 좌표를 월드 좌표로 변환
 
         Vector3 endPos = Input.mousePosition; // 마우스 위치

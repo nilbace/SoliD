@@ -143,7 +143,6 @@ public class DataParser : MonoBehaviour
         {
             if (effectData.EffectID == index)
             {
-                // 깊은 복사를 위해 복사 생성자를 사용하여 반환
                 return effectData;
             }
         }
@@ -152,65 +151,5 @@ public class DataParser : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 현재 안씀
-    /// </summary>
-    /// <param name="datas"></param>
-    /// <returns></returns>
-    public List<CardEffectData> ParseMechanismDataFromTSV(TextAsset datas)
-    {
-        List<CardEffectData> dataList = new List<CardEffectData>();
-
-        // 파일에서 모든 줄을 읽어옵니다.
-        string[] lines = datas.text.Split('\n');
-
-        // 첫 번째 줄(헤더)에서 멤버 변수 이름을 가져옵니다.
-        string[] headers = lines[0].Split('\t');
-
-        for (int i = 1; i < lines.Length; i++) // 데이터 행을 순회합니다.
-        {
-            string[] columns = lines[i].Split('\t');
-            CardEffectData data = new CardEffectData();
-            for (int j = 0; j < headers.Length; j++)
-            {
-                if (columns[j] == "") continue;
-
-                PropertyInfo propertyInfo = typeof(CardEffectData).GetProperty(headers[j]);
-                FieldInfo fieldInfo = typeof(CardEffectData).GetField(headers[j]);
-
-
-                if (propertyInfo != null)
-                {
-                    // 속성에 대한 처리 (MechanismData에는 속성이 없으므로 이 예제에서는 사용되지 않습니다.)
-                }
-                else if (fieldInfo != null)
-                {
-                    // 필드 타입에 따라 적절한 파싱을 수행하고 값을 할당합니다.
-                    object value;
-                    if (fieldInfo.FieldType == typeof(int))
-                    {
-                        value = int.Parse(columns[j]);
-                    }
-                    else if (fieldInfo.FieldType == typeof(float))
-                    {
-                        value = float.Parse(columns[j], CultureInfo.InvariantCulture);
-                    }
-                    else if (fieldInfo.FieldType.IsEnum)
-                    {
-                        value = System.Enum.Parse(fieldInfo.FieldType, columns[j]);
-                    }
-                    else
-                    {
-                        value = columns[j]; // 문자열의 경우 직접 할당
-                    }
-
-                    fieldInfo.SetValue(data, value);
-                }
-            }
-
-            dataList.Add(data);
-        }
-
-        return dataList;
-    }
+ 
 }
