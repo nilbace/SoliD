@@ -119,6 +119,7 @@ public class CardMouseDetection : MonoBehaviour
         {
             if (hitCollider.CompareTag("Monster"))
             {
+                GameManager.Battle.TargetMonster = hitCollider.GetComponent<UnitBase>();
                 return true;
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UnitBase : MonoBehaviour
 {
-    protected float _nowHp;
+    public float _nowHp;
     public float MaxHP;
     public bool IsInjured;
     public bool IsChained;

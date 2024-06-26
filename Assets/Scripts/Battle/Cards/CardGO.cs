@@ -34,7 +34,6 @@ public class CardGO : MonoBehaviour
     IEnumerator UseCardCor()
     {
         GameManager.Battle.MoveCharFront(thisCardData.CardOwner);
-        yield break; 
 
         //카드 효과들을 차례대로 발동함
         foreach(CardEffectData cardEffectData in thisCardData.CardEffectList)

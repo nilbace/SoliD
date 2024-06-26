@@ -8,6 +8,7 @@ public class TempMonster : UnitBase
     private void Start()
     {
         BattleManager.Inst.EnemyUnits.Add(this);
+        NowHp = MaxHP = StartHP;
     }
 
 }

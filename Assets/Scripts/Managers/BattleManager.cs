@@ -98,9 +98,6 @@ public class BattleManager : MonoBehaviour
                 var movedUnit = PlayerUnits[targetIndex];
                 PlayerUnits.RemoveAt(targetIndex);
                 PlayerUnits.Insert(0, movedUnit);
-
-                // Debug.Log를 사용하여 리스트 순서가 바뀌었음을 확인합니다.
-                Debug.Log("PlayerUnits 리스트 순서가 변경되었습니다.");
             });
 
             moveSequence.Play();
