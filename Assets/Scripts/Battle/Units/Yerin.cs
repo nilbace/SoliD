@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Yerin : MonoBehaviour
+public class Yerin : UnitBase
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BattleManager.Inst.PlayerUnits.Add(this); BattleManager.Inst.ArrangePlayerChars();
     }
 }

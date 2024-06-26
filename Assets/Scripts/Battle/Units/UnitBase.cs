@@ -10,11 +10,7 @@ public class UnitBase : MonoBehaviour
     public bool IsInjured;
     public bool IsChained;
     public List<EffectBase> ActiveEffects = new List<EffectBase>();
-
-    private void Start()
-    {
-        GameManager.Battle.Units.Add(this);
-    }
+    
     public bool HasEffect(E_CardEffectType effectType)
     {
         return ActiveEffects.Any(e => e.Type == effectType);

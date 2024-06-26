@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Minju : UnitBase
 {
-    void Start()
-    {
-        
-    }
 
-    void Update()
+    private void Start()
     {
-        
+        BattleManager.Inst.PlayerUnits.Add(this);
+        BattleManager.Inst.ArrangePlayerChars();
     }
 }

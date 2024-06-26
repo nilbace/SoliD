@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public enum CharName
+public enum E_CharName
 {
     Minju,
     Seolha,
     Yerin
 }
 
-public enum CharNameKor
+public enum E_CharNameKor
 {
     »´πŒ¡÷,
     √÷º≥«œ,
@@ -50,7 +50,7 @@ public class Buff
 }
 
 public enum E_CardType { Attack, Defence, Skill }
-public enum E_CardOwner { Magenta, Cyan, Yellow }
+public enum E_CardOwner { Minju, Seolha, Yerin }
 public enum E_CardColor { Magenta, Cyan, Yellow, Black }
 public enum E_CardTier { Normal, Rare }
 public enum E_TargetType

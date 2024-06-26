@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TempMonster : MonoBehaviour
+public class TempMonster : UnitBase
 {
-    void Start()
+    public int StartHP;
+    private void Start()
     {
-        
+        BattleManager.Inst.EnemyUnits.Add(this);
     }
 
-    void Update()
-    {
-        
-    }
 }

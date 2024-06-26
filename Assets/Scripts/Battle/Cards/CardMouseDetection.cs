@@ -58,7 +58,6 @@ public class CardMouseDetection : MonoBehaviour
         //어느정도 들어 올려야 사용중 판정
         if (!IsUsing && transform.position.y > YOffset)
         {
-            Debug.Log("사용중판정");
             IsUsing = true;
             if(_needTarget) transform.DOMove(new Vector3(-0, -2.3f, 0), 0.15f);
 
@@ -179,7 +178,6 @@ public class CardMouseDetection : MonoBehaviour
     void CancelUse()
     {
         IsCanceled = true;
-        Debug.Log("취소");
         IsUsing = false;
         
         HideBorder();
@@ -189,11 +187,10 @@ public class CardMouseDetection : MonoBehaviour
 
     void UseCard()
     {
-        Debug.Log("사용");
         IsUsing = false;
         HideBorder();
         BezierCurveDrawer.Inst.lineRenderer.positionCount = 0; //선을 숨깁니다.
         HandManager.Inst.ArrangeCards();
-        //thisCardGO.UseCard();
+        thisCardGO.UseCard();
     }
 }
