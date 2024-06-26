@@ -3293,7 +3293,7 @@ MonoBehaviour:
   radius: 30
   _tValueForOneCard: 0.5
   _tValueForTwoCards: {x: 0.35, y: 0.76}
-  _tValueForThreeCards: {x: 0.12, y: 0.44, z: 0.79}
+  _tValueForThreeCards: {x: 0.15, y: 0.5, z: 0.85}
   TempDeck: {fileID: 516098425}
 --- !u!4 &1189276705
 Transform:
