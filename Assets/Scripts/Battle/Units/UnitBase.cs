@@ -9,8 +9,25 @@ public class UnitBase : MonoBehaviour
     public float MaxHP;
     public bool IsInjured;
     public bool IsChained;
-    public List<EffectBase> ActiveEffects = new List<EffectBase>();
-    
+    public List<EffectBase> ActiveEffects;
+
+
+
+    public void Start()
+    {
+        ActiveEffects = new List<EffectBase>();
+    }
+
+    [ContextMenu("Show Active Effects")]
+    private void ShowActiveEffects()
+    {
+        // 현재 활성화된 이펙트를 표시합니다.
+        foreach (EffectBase effect in ActiveEffects)
+        {
+            Debug.Log($"Effect Type: {effect.Type}, Duration: {effect.Duration}, Stack: {effect.Stack}, InfoText: {effect.InfoText}");
+        }
+    }
+
     public bool HasEffect(E_CardEffectType effectType)
     {
         return ActiveEffects.Any(e => e.Type == effectType);

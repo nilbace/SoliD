@@ -12,6 +12,10 @@ public class BattleManager : MonoBehaviour
     public UnitBase TargetMonster;
     public float PlayerMoveDuration;
 
+    [HideInInspector]public int EnergyAmount;
+    [HideInInspector] public int NowEnergy;
+    public TMPro.TMP_Text TMP_Energy;
+
 
     private void Awake()
     {
@@ -20,6 +24,33 @@ public class BattleManager : MonoBehaviour
         EnemyUnits = new List<UnitBase>();
     }
 
+    private void Start()
+    {
+        EnergyAmount = 3;
+        NowEnergy = EnergyAmount;
+        UpdateBattleUI();
+    }
+
+    public void UpdateBattleUI()
+    {
+        TMP_Energy.text = $"{NowEnergy}/{EnergyAmount}";
+    }
+
+    public void EndPlayerTurn()
+    {
+        
+    }
+
+    public void FillEnergy()
+    {
+        NowEnergy = EnergyAmount;
+    }
+
+    public void UseEnergy(int cost)
+    {
+        NowEnergy -= cost;
+        UpdateBattleUI();
+    }
 
     /// <summary>
     /// 주체와 대상 타입을 넣어서 대상(들) 반환
@@ -36,7 +67,7 @@ public class BattleManager : MonoBehaviour
                 tempUnits.Add(TargetMonster);
                 break;
             case E_TargetType.AllEnemies:
-                foreach(UnitBase _unit in PlayerUnits)
+                foreach(UnitBase _unit in EnemyUnits)
                 {
                     if (unit.tag != _unit.tag) tempUnits.Add(_unit);
                 }
@@ -46,6 +77,21 @@ public class BattleManager : MonoBehaviour
                 break;
         }
         return tempUnits;
+    }
+
+    public List<UnitBase> GetProperUnits(E_CardOwner ownerName, E_TargetType targetType)
+    {
+        // PlayerUnits 리스트에서 tag가 ownerName.ToString()과 같은 UnitBase를 찾습니다.
+        UnitBase ownerUnit = PlayerUnits.Find(unit => unit.tag == ownerName.ToString());
+
+        // ownerUnit이 null이 아니면 기존의 GetProperUnits 함수를 호출하여 결과를 반환합니다.
+        if (ownerUnit != null)
+        {
+            return GetProperUnits(ownerUnit, targetType);
+        }
+
+        // 만약 ownerUnit을 찾지 못하면 빈 리스트를 반환합니다.
+        return new List<UnitBase>();
     }
 
     public void ArrangePlayerChars()

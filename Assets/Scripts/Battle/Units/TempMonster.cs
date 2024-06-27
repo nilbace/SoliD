@@ -5,8 +5,9 @@ using UnityEngine;
 public class TempMonster : UnitBase
 {
     public int StartHP;
-    private void Start()
+    private new void Start()
     {
+        base.Start();
         BattleManager.Inst.EnemyUnits.Add(this);
         NowHp = MaxHP = StartHP;
     }

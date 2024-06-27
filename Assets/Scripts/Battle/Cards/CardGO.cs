@@ -5,7 +5,6 @@ using UnityEngine;
 public class CardGO : MonoBehaviour
 {
     public CardData thisCardData;
-    public UnitBase CardUser;
     public Sprite[] Sprites_Cost;
     public Sprite[] Sprites_Line;
     public SpriteRenderer SR_Cost;
@@ -33,6 +32,7 @@ public class CardGO : MonoBehaviour
 
     IEnumerator UseCardCor()
     {
+        GameManager.Battle.UseEnergy(thisCardData.CardCost);
         GameManager.Battle.MoveCharFront(thisCardData.CardOwner);
 
         //카드 효과들을 차례대로 발동함
@@ -45,7 +45,7 @@ public class CardGO : MonoBehaviour
             }
 
             //대상 타겟들을 받아 와서
-            var targets = GameManager.Battle.GetProperUnits(CardUser, cardEffectData.TargetType);
+            var targets = GameManager.Battle.GetProperUnits(thisCardData.CardOwner, cardEffectData.TargetType);
 
             //각 효과 타입마다 알맞은 효과를 대상에게 적용
             switch (cardEffectData.CardEffectType)
@@ -151,7 +151,10 @@ public class CardGO : MonoBehaviour
                     break;
             }
 
-            //카드 사용 이후 처리
+            HandManager.Inst.DiscardCardFromHand(gameObject);
+
+            //ToDO Destroy는 맞는데 이펙트도 추가해야됨
+            Destroy(gameObject);
         }
     }
 }

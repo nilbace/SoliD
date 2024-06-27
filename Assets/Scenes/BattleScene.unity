@@ -1084,6 +1084,9 @@ MonoBehaviour:
   EnemyUnits: []
   TargetMonster: {fileID: 0}
   PlayerMoveDuration: 0.46
+  EnergyAmount: 3
+  NowEnergy: 0
+  TMP_Energy: {fileID: 1578021064}
 --- !u!1 &516789332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,10 +2392,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40849066078df23429bfa153664099a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 200
+  _nowHp: 0
+  MaxHP: 0
   IsInjured: 0
   IsChained: 0
-  StartHP: 0
+  StartHP: 20
 --- !u!1 &899961016
 GameObject:
   m_ObjectHideFlags: 0
@@ -3445,6 +3449,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1459687761413824771, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459687762015249066, guid: dd19956d62616814cad2a0397756b133, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459687762015249066, guid: dd19956d62616814cad2a0397756b133, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459687762015249066, guid: dd19956d62616814cad2a0397756b133, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459687762015249066, guid: dd19956d62616814cad2a0397756b133, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1459687762426582819, guid: dd19956d62616814cad2a0397756b133, type: 3}

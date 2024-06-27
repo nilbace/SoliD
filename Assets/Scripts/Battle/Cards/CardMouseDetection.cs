@@ -20,7 +20,7 @@ public class CardMouseDetection : MonoBehaviour
     }
     void Update()
     {
-        if ( !IsCanceled &&IsUsing && Input.GetMouseButtonUp(1))
+        if (!IsCanceled &&IsUsing && Input.GetMouseButtonUp(1))
         {
             CancelUse();
         }
@@ -58,9 +58,17 @@ public class CardMouseDetection : MonoBehaviour
         //어느정도 들어 올려야 사용중 판정
         if (!IsUsing && transform.position.y > YOffset)
         {
-            IsUsing = true;
-            if(_needTarget) transform.DOMove(new Vector3(-0, -2.3f, 0), 0.15f);
-
+            //코스트 여유가 되지 않으면
+            if(thisCardGO.thisCardData.CardCost > GameManager.Battle.NowEnergy)
+            {
+                CancelUse();
+            }
+            else
+            {
+                IsUsing = true;
+                if (_needTarget) transform.DOMove(new Vector3(-0, -2.3f, 0), 0.15f);
+            }
+            
         }
 
         if (IsUsing)
@@ -141,10 +149,9 @@ public class CardMouseDetection : MonoBehaviour
     }
 
     
-
-
     void GlowBorder()
     {
+        if (thisCardGO.thisCardData.CardCost > GameManager.Battle.NowEnergy) return;
         transform.DOScale(new Vector3(0.7f, 0.7f), Duration);
         Color originalColor = _glowingBorder.color;
         Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 1.0f); // 테두리 잔상을 빛나게
@@ -153,6 +160,7 @@ public class CardMouseDetection : MonoBehaviour
 
     void HideBorder()
     {
+        if (thisCardGO.thisCardData.CardCost > GameManager.Battle.NowEnergy) return;
         transform.DOScale(new Vector3(0.5f, 0.5f), Duration);
         Color originalColor = _glowingBorder.color;
         Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f); // 테두리 잔상을 투명하게 안보이게
@@ -180,7 +188,8 @@ public class CardMouseDetection : MonoBehaviour
     {
         IsCanceled = true;
         IsUsing = false;
-        
+        transform.localScale = Vector3.one * 0.5f;
+
         HideBorder();
         BezierCurveDrawer.Inst.lineRenderer.positionCount = 0; //선을 숨깁니다.
         HandManager.Inst.ArrangeCards();

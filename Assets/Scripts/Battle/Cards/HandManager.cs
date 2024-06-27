@@ -22,7 +22,7 @@ public class HandManager : MonoSingleton<HandManager>
     [SerializeField] private Vector2 _tValueForTwoCards;
     [SerializeField] private Vector3 _tValueForThreeCards;
 
-    private List<GameObject> cards = new List<GameObject>();
+    private List<GameObject> cardsInMyHand = new List<GameObject>();
     public DeckManager TempDeck;
     private int cardIndex;
 
@@ -34,7 +34,7 @@ public class HandManager : MonoSingleton<HandManager>
         var newcardData = newCard.GetComponent<CardGO>();
         newcardData.thisCardData = TempDeck.Cards[cardIndex++];
         newcardData.SetCardSprite();
-        cards.Add(newCard);
+        cardsInMyHand.Add(newCard);
         ArrangeCards();
     }
 
@@ -48,11 +48,20 @@ public class HandManager : MonoSingleton<HandManager>
 
     public void DiscardCardFromHand(int index)
     {
-        if (index >= 0 && index < cards.Count)
+        if (index >= 0 && index < cardsInMyHand.Count)
         {
-            GameObject discardedCard = cards[index];
-            cards.RemoveAt(index);
+            GameObject discardedCard = cardsInMyHand[index];
+            cardsInMyHand.RemoveAt(index);
             Destroy(discardedCard);
+            ArrangeCards();
+        }
+    }
+
+    public void DiscardCardFromHand(GameObject cardGO)
+    {
+        if(cardsInMyHand.Contains(cardGO))
+        {
+            cardsInMyHand.Remove(cardGO);
             ArrangeCards();
         }
     }
@@ -64,11 +73,11 @@ public class HandManager : MonoSingleton<HandManager>
     /// <returns></returns>
     private float GetProperT_Value(int i)
     {
-        if (cards.Count == 1)
+        if (cardsInMyHand.Count == 1)
         {
             return _tValueForOneCard;
         }
-        else if (cards.Count == 2)
+        else if (cardsInMyHand.Count == 2)
         {
             if (i == 0)
             {
@@ -79,7 +88,7 @@ public class HandManager : MonoSingleton<HandManager>
                 return _tValueForTwoCards.y;
             }
         }
-        else if (cards.Count == 3)
+        else if (cardsInMyHand.Count == 3)
         {
             if (i == 0)
             {
@@ -104,7 +113,7 @@ public class HandManager : MonoSingleton<HandManager>
 
     public void ArrangeCards()
     {
-        int totalCards = cards.Count;
+        int totalCards = cardsInMyHand.Count;
         // 아치를 형성하는 각도 범위
         float startAngle = Mathf.Deg2Rad * -AngleOffset;
         float endAngle = Mathf.Deg2Rad * AngleOffset; 
@@ -123,20 +132,20 @@ public class HandManager : MonoSingleton<HandManager>
 
             // 아치의 중심 위치에 대한 조정이 필요하다면 여기서 centerPosition을 더합니다.
             Vector3 targetPosition = centerPosition.position + cardPosition;
-            cards[i].transform.DOMove(targetPosition, MoveDuration);
+            cardsInMyHand[i].transform.DOMove(targetPosition, MoveDuration);
 
             // 카드가 아치를 따라 올바른 방향을 가리키도록 z축 회전 조정
             float targetRotation = -(angle * Mathf.Rad2Deg);
-            cards[i].transform.DORotate(new Vector3(0, 0, targetRotation), MoveDuration);
+            cardsInMyHand[i].transform.DORotate(new Vector3(0, 0, targetRotation), MoveDuration);
 
             // 스프라이트 렌더러와 캔버스 정렬 순서 조정
-            SpriteRenderer[] spriteRenderers = cards[i].GetComponentsInChildren<SpriteRenderer>();
+            SpriteRenderer[] spriteRenderers = cardsInMyHand[i].GetComponentsInChildren<SpriteRenderer>();
             for (int j = 0; j < spriteRenderers.Length; j++)
             {
                 spriteRenderers[j].sortingOrder = startingSortingOrder + i * sortingOrderIncrement - j;
             }
 
-            Canvas[] canvases = cards[i].GetComponentsInChildren<Canvas>();
+            Canvas[] canvases = cardsInMyHand[i].GetComponentsInChildren<Canvas>();
             foreach (Canvas canvas in canvases)
             {
                 canvas.sortingOrder = startingSortingOrder + i * sortingOrderIncrement + 1;

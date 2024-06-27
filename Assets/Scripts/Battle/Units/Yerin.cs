@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Yerin : UnitBase
 {
-    private void Start()
+    private new void Start()
     {
-        BattleManager.Inst.PlayerUnits.Add(this); BattleManager.Inst.ArrangePlayerChars();
+        base.Start();
+        BattleManager.Inst.PlayerUnits.Add(this);
+        BattleManager.Inst.ArrangePlayerChars();
     }
 }
