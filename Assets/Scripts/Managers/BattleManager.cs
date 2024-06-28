@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 전투 대상과 턴 관리
+/// </summary>
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Inst;
@@ -15,6 +18,8 @@ public class BattleManager : MonoBehaviour
     [HideInInspector]public int EnergyAmount;
     [HideInInspector] public int NowEnergy;
     public TMPro.TMP_Text TMP_Energy;
+
+    public List<Sprite> EffectIcons;
 
 
     private void Awake()
@@ -31,6 +36,7 @@ public class BattleManager : MonoBehaviour
         UpdateBattleUI();
     }
 
+
     public void UpdateBattleUI()
     {
         TMP_Energy.text = $"{NowEnergy}/{EnergyAmount}";
@@ -38,12 +44,22 @@ public class BattleManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
-        
+        HandManager.Inst.DiscardAllCardsFromHand();
+        //몬스터의 턴 시작
+        //몬스터의 턴이 끝나면
+        StartPlayerTurn();
+    }
+
+    public void StartPlayerTurn()
+    {
+        FillEnergy();
+        HandManager.Inst.DrawCards(5);
     }
 
     public void FillEnergy()
     {
         NowEnergy = EnergyAmount;
+        UpdateBattleUI();
     }
 
     public void UseEnergy(int cost)
@@ -100,7 +116,7 @@ public class BattleManager : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                PlayerUnits[i].transform.position = PlayerPozs[i];
+                PlayerUnits[i].transform.localPosition = PlayerPozs[i];
             }
         }
     }
@@ -125,14 +141,14 @@ public class BattleManager : MonoBehaviour
             // DOTween 시퀀스를 사용하여 애니메이션 순서를 관리합니다.
             Sequence moveSequence = DOTween.Sequence();
 
-            moveSequence.Append(targetChar.transform.DOMove(PlayerPozs[0], PlayerMoveDuration));
+            moveSequence.Append(targetChar.transform.DOLocalMove(PlayerPozs[0], PlayerMoveDuration));
 
             int pozIndex = 1;
             for (int i = 0; i < PlayerUnits.Count; i++)
             {
                 if (i != targetIndex)
                 {
-                    moveSequence.Join(PlayerUnits[i].transform.DOMove(PlayerPozs[pozIndex], PlayerMoveDuration));
+                    moveSequence.Join(PlayerUnits[i].transform.DOLocalMove(PlayerPozs[pozIndex], PlayerMoveDuration));
                     pozIndex++;
                 }
             }
@@ -148,5 +164,19 @@ public class BattleManager : MonoBehaviour
 
             moveSequence.Play();
         }
+    }
+
+    public Sprite GetEffectIcon(E_EffectType effect)
+    {
+        foreach (var icon in EffectIcons)
+        {
+            if (icon.name == effect.ToString())
+            {
+                return icon;
+            }
+        }
+
+        // 해당 이름의 스프라이트를 찾지 못한 경우 null 반환
+        return null;
     }
 }

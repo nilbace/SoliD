@@ -26,25 +26,28 @@ public class HandManager : MonoSingleton<HandManager>
     public DeckManager TempDeck;
     private int cardIndex;
 
-    [ContextMenu("카드 추가")]
-    public void AddCardToHand()
+    public void DrawCards(int count)
     {
-        if (TempDeck.Cards.Count == 0) return;
-        GameObject newCard = Instantiate(cardPrefab);
-        var newcardData = newCard.GetComponent<CardGO>();
-        newcardData.thisCardData = TempDeck.Cards[cardIndex++];
-        newcardData.SetCardSprite();
-        cardsInMyHand.Add(newCard);
-        ArrangeCards();
+        StartCoroutine(DrawCardsCoroutine(count));
     }
 
-    private void Update()
+    private IEnumerator DrawCardsCoroutine(int count)
     {
-        if(Input.GetKeyDown(KeyCode.D))
+        for (int i = 0; i < count; i++)
         {
-            AddCardToHand();
+            if (TempDeck.Cards.Count == 0) yield break;
+
+            GameObject newCard = Instantiate(cardPrefab);
+            var newcardData = newCard.GetComponent<CardGO>();
+            newcardData.thisCardData = TempDeck.Cards[cardIndex++];
+            newcardData.SetCardSprite();
+            cardsInMyHand.Add(newCard);
+            ArrangeCards();
+
+            yield return new WaitForSeconds(0.2f);
         }
     }
+
 
     public void DiscardCardFromHand(int index)
     {
@@ -62,8 +65,19 @@ public class HandManager : MonoSingleton<HandManager>
         if(cardsInMyHand.Contains(cardGO))
         {
             cardsInMyHand.Remove(cardGO);
+            Destroy(cardGO);
             ArrangeCards();
         }
+    }
+
+    public void DiscardAllCardsFromHand()
+    {
+        foreach (GameObject card in cardsInMyHand)
+        {
+            Destroy(card);
+        }
+        cardsInMyHand.Clear();
+        ArrangeCards();
     }
 
     /// <summary>

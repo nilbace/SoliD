@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +10,34 @@ public class UnitBase : MonoBehaviour
     public float MaxHP;
     public bool IsInjured;
     public bool IsChained;
-    public List<EffectBase> ActiveEffects;
-
+    public List<EffectBase> ActiveEffectList;
+    public Action EffectUpdateAction;
 
 
     public void Start()
     {
-        ActiveEffects = new List<EffectBase>();
+        ActiveEffectList = new List<EffectBase>();
     }
 
     [ContextMenu("Show Active Effects")]
     private void ShowActiveEffects()
     {
         // 현재 활성화된 이펙트를 표시합니다.
-        foreach (EffectBase effect in ActiveEffects)
+        foreach (EffectBase effect in ActiveEffectList)
         {
             Debug.Log($"Effect Type: {effect.Type}, Duration: {effect.Duration}, Stack: {effect.Stack}, InfoText: {effect.InfoText}");
         }
     }
 
-    public bool HasEffect(E_CardEffectType effectType)
+    public void AddEffect(EffectBase effect)
     {
-        return ActiveEffects.Any(e => e.Type == effectType);
+        ActiveEffectList.Add(effect);
+        EffectUpdateAction?.Invoke();
+    }
+
+    public bool HasEffect(E_EffectType effectType)
+    {
+        return ActiveEffectList.Any(e => e.Type == effectType);
     }
 
     public float NowHp

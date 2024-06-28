@@ -62,7 +62,7 @@ public enum E_TargetType
     MaxCount
 }
 
-public enum E_CardEffectType
+public enum E_EffectType
 {
     Strength, Crystallization, Blessing, Vulnerability, Weakening, Thorn, Bloodstain, Chain, Encroachment, Blade, BulletMark,
     Injury, Concussion, Despair, MuscleLoss, Scabbard, Interval, Damage, Shield, Heal, Black,  MaxCount
@@ -73,7 +73,7 @@ public class CardEffectData
 {
     public int EffectID;
     public E_TargetType TargetType;
-    public E_CardEffectType CardEffectType;
+    public E_EffectType CardEffectType;
     public float Amount;
 
     public CardEffectData(CardEffectData cardEffectData)

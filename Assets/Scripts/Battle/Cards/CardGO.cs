@@ -39,7 +39,7 @@ public class CardGO : MonoBehaviour
         foreach(CardEffectData cardEffectData in thisCardData.CardEffectList)
         {
             //Interval효과라면 그 시간만큼 대기
-            if(cardEffectData.TargetType == E_TargetType.None && cardEffectData.CardEffectType == E_CardEffectType.Interval)
+            if(cardEffectData.TargetType == E_TargetType.None && cardEffectData.CardEffectType == E_EffectType.Interval)
             {
                 yield return new WaitForSeconds(cardEffectData.Amount);
             }
@@ -50,111 +50,110 @@ public class CardGO : MonoBehaviour
             //각 효과 타입마다 알맞은 효과를 대상에게 적용
             switch (cardEffectData.CardEffectType)
             {
-                case E_CardEffectType.Damage:
+                case E_EffectType.Damage:
                     foreach(UnitBase target in targets)
                     {
                         target.GetDamage(cardEffectData.Amount);
                     }
                     break;
-                case E_CardEffectType.Encroachment:
+                case E_EffectType.Encroachment:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Encroachment(cardEffectData.Amount));
+                        target.AddEffect(new Encroachment(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Shield:
+                case E_EffectType.Shield:
                     //Todo : 방어도 추가
                     break;
-                case E_CardEffectType.Strength:
+                case E_EffectType.Strength:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Strength(cardEffectData.Amount));
+                        target.AddEffect(new Strength(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Thorn:
+                case E_EffectType.Thorn:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Thorn(cardEffectData.Amount));
+                        target.AddEffect(new Thorn(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Bloodstain:
+                case E_EffectType.Bloodstain:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Bloodstain(cardEffectData.Amount));
+                        target.AddEffect(new Bloodstain(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Concussion:
+                case E_EffectType.Concussion:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Concussion(cardEffectData.Amount));
+                        target.AddEffect(new Concussion(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Chain:
+                case E_EffectType.Chain:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Chain(cardEffectData.Amount));
+                        target.AddEffect(new Chain(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Heal:
+                case E_EffectType.Heal:
                     foreach (UnitBase target in targets)
                     {
                         target.Heal(cardEffectData.Amount);
                     }
                     break;
-                case E_CardEffectType.Black:
+                case E_EffectType.Black:
                     foreach (UnitBase target in targets)
                     {
                         target.Heal(cardEffectData.Amount);
                     }
                     break;
-                case E_CardEffectType.Crystallization:
+                case E_EffectType.Crystallization:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Crystallization(cardEffectData.Amount));
+                        target.AddEffect(new Crystallization(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Blade:
+                case E_EffectType.Blade:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Blade(cardEffectData.Amount));
+                        new Blade(cardEffectData.Amount).ApplyEffect(target);
+                        target.EffectUpdateAction?.Invoke();
                     }
                     break;
-                case E_CardEffectType.Blessing:
+                case E_EffectType.Blessing:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Blessing(cardEffectData.Amount));
+                        target.AddEffect(new Blessing(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Despair:
+                case E_EffectType.Despair:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Despair(cardEffectData.Amount));
+                        target.AddEffect(new Despair(cardEffectData.Amount));
+                        
                     }
                     break;
-                case E_CardEffectType.MuscleLoss:
+                case E_EffectType.MuscleLoss:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new MuscleLoss(cardEffectData.Amount));
+                        target.AddEffect(new MuscleLoss(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.BulletMark:
+                case E_EffectType.BulletMark:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new BulletMark(cardEffectData.Amount));
+                        target.AddEffect(new BulletMark(cardEffectData.Amount));
                     }
                     break;
-                case E_CardEffectType.Vulnerability:
+                case E_EffectType.Vulnerability:
                     foreach (UnitBase target in targets)
                     {
-                        target.ActiveEffects.Add(new Vulnerability(cardEffectData.Amount));
+                        target.AddEffect(new Vulnerability(cardEffectData.Amount));
                     }
                     break;
             }
 
             HandManager.Inst.DiscardCardFromHand(gameObject);
-
-            //ToDO Destroy는 맞는데 이펙트도 추가해야됨
-            Destroy(gameObject);
         }
     }
 }

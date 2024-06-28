@@ -23,7 +23,8 @@ public class DataParser : MonoBehaviour
     IEnumerator RequestDatas()
     {
         yield return StartCoroutine(RequestAndSetDayDatas(URL_CardEffectData, ProcessCardEffectData_To_List));
-        StartCoroutine(RequestAndSetDayDatas(URL_CardData, ProcessCard_To_Deck));
+        yield return StartCoroutine(RequestAndSetDayDatas(URL_CardData, ProcessCard_To_Deck));
+        GameManager.Battle.StartPlayerTurn();
     }
 
  
