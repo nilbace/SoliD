@@ -108,6 +108,10 @@ public class BattleManager : MonoBehaviour
                     }
                     break;
             }
+            foreach (UnitBase target in targets)
+            {
+                VisualEffectManager.Inst.InstantiateEffect(monster.NowIntent.CardEffectData.CardEffectType, target);
+            }
         }
 
 

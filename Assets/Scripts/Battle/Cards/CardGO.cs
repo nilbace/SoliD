@@ -88,6 +88,10 @@ public class CardGO : MonoBehaviour
              
             }
 
+            foreach (UnitBase target in targets)
+            {
+                VisualEffectManager.Inst.InstantiateEffect(cardEffectData.CardEffectType, target);
+            }
 
             HandManager.Inst.DiscardCardFromHand(gameObject);
         }
