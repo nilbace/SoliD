@@ -102,6 +102,8 @@ namespace Map
             SetLineColors();
 
             CreateMapBackground(m);
+
+            MoveToCenter();
         }
 
         protected virtual void CreateMapBackground(Map m)
@@ -342,6 +344,13 @@ namespace Map
         {
             var config = GetConfig(mapManager.CurrentMap.configName);
             return config.nodeBlueprints.FirstOrDefault(n => n.name == blueprintName);
+        }
+
+        public void MoveToCenter()
+        {
+            var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
+            float bossNodePozX = bossNode.gameObject.transform.position.x;
+            mapParent.transform.position += new Vector3(-bossNodePozX, 0, 0);
         }
     }
 }
