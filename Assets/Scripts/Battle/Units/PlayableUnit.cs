@@ -31,9 +31,8 @@ public class PlayableUnit : UnitBase
             NowHp -= amount;
         }
 
-        if (NowHp < 0) NowHp = 0;
 
-        Debug.Log($"Player took damage. Barrier: {sharedBarrier}, HP: {NowHp}");
+        Debug.Log($"{gameObject.name} took damage. Barrier: {sharedBarrier}, HP: {NowHp}");
     }
 
     [ContextMenu("방어막 표시")]

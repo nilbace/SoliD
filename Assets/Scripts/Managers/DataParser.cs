@@ -9,12 +9,17 @@ using System;
 
 public class DataParser : MonoBehaviour
 {
+    public static DataParser Inst;
     public List<CardEffectData> CardEffectList;
     private const string URL_CardData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=0&range=A2:K32";
-    private const string URL_CardEffectData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=1198669234&range=B2:D26";
+    private const string URL_CardEffectData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=1198669234&range=A2:D26";
 
     public DeckManager TempDeck;
 
+    private void Awake()
+    {
+        Inst = this;
+    }
     private void Start()
     {
         StartCoroutine(RequestDatas());
@@ -25,6 +30,7 @@ public class DataParser : MonoBehaviour
         yield return StartCoroutine(RequestAndSetDayDatas(URL_CardEffectData, ProcessCardEffectData_To_List));
         yield return StartCoroutine(RequestAndSetDayDatas(URL_CardData, ProcessCard_To_Deck));
         GameManager.Battle.StartPlayerTurn();
+        TempMonster.Inst.ParseIntent();
     }
 
  
@@ -66,6 +72,7 @@ public class DataParser : MonoBehaviour
         {
             Debug.LogError($"{lines[2]} : Failed to parse the string to CardEffectType enum.");
         }
+        cardEffect.InfoString = lines[3];
         CardEffectList.Add(cardEffect);
     }
 
@@ -138,7 +145,7 @@ public class DataParser : MonoBehaviour
         TempDeck.Cards.Add(cardData);
     }
 
-    CardEffectData GetCardEffectFromListByIndex(int index)
+    public CardEffectData GetCardEffectFromListByIndex(int index)
     {
         foreach (var effectData in CardEffectList)
         {

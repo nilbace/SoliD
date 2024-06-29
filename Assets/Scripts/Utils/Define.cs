@@ -75,6 +75,7 @@ public class CardEffectData
     public E_TargetType TargetType;
     public E_EffectType CardEffectType;
     public float Amount;
+    public string InfoString;
 
     public CardEffectData(CardEffectData cardEffectData)
     {
@@ -82,6 +83,7 @@ public class CardEffectData
         TargetType = cardEffectData.TargetType;
         CardEffectType = cardEffectData.CardEffectType;
         Amount = cardEffectData.Amount;
+        InfoString = cardEffectData.InfoString;
     }
 
     public CardEffectData() { }

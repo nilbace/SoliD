@@ -87,8 +87,8 @@ public abstract class EffectBase
 
     public virtual void NextTurnStarted(UnitBase unit)
     {
-        if (Duration > 0) Duration--;
-        if (Duration == 0) unit.ActiveEffectList.Remove(this);
+        if (Duration > 1) Duration--;
+        if (Duration == 1) unit.ActiveEffectList.Remove(this);
     }
     protected virtual void ApplyOrUpdateEffectByStack(UnitBase unit)
     {
@@ -199,7 +199,7 @@ public class Bloodstain : EffectBase
         ApplyOrUpdateEffectByStack(unit);
     }
 
-    public new void NextTurnStarted(UnitBase unit)
+    public override void NextTurnStarted(UnitBase unit)
     {
         unit.NowHp -= Stack;
         unit.ActiveEffectList.Remove(this);
@@ -217,7 +217,7 @@ public class Chain : EffectBase
         unit.IsChained = true;
     }
 
-    public new void NextTurnStarted(UnitBase unit)
+    public override void NextTurnStarted(UnitBase unit)
     {
         if (Duration > 0) Duration--;
         if (Duration == 0)
@@ -231,13 +231,28 @@ public class Chain : EffectBase
 public class Encroachment : EffectBase
 {
     public Encroachment(float duration) : base(E_EffectType.Encroachment, duration, -1,
-        "회복력이 50%(소수점 버림)만큼 줄어든다. 다음 턴 시작 시 1 감소")
+        "턴 시작 시, 수치만큼 피해를 받는다. 다음 턴 시작 시 1 감소한다. ")
     { }
     public override void ApplyEffect(UnitBase unit)
     {
         ApplyOrUpdateEffectByDuration(unit);
     }
 
+    public override void NextTurnStarted(UnitBase unit)
+    {
+        Debug.Log("2");
+        if (Duration > 0)
+        {
+            unit.GetDamage(Duration);
+            Duration--;
+            if (Duration == 0)
+            {
+                unit.ActiveEffectList.Remove(this);
+                unit.IsChained = false;
+            }
+        }
+        
+    }
 }
 
 public class Blade : EffectBase

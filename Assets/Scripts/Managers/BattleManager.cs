@@ -60,11 +60,89 @@ public class BattleManager : MonoBehaviour
     public void EndPlayerTurn()
     {
         HandManager.Inst.DiscardAllCardsFromHand();
-        //몬스터의 턴 시작
-        //몬스터의 턴이 끝나면
+        StartMonsterTurn();
+        TurnOver();
         StartPlayerTurn();
     }
 
+    public void StartMonsterTurn()
+    {
+        foreach(TempMonster monster in EnemyUnits)
+        {
+            var targets = GetProperUnits(monster, monster.NowIntent.CardEffectData.TargetType);
+            switch (monster.NowIntent.CardEffectData.CardEffectType)
+            {
+                case E_EffectType.Damage:
+                    foreach (UnitBase target in targets)
+                    {
+                        target.GetDamage(monster.NowIntent.CardEffectData.Amount);
+                    }
+                    break;
+                case E_EffectType.Shield:
+                    foreach (UnitBase target in targets)
+                    {
+                        target.AddBarrier(monster.NowIntent.CardEffectData.Amount);
+                    }
+                    break;
+
+                case E_EffectType.Heal:
+                    foreach (UnitBase target in targets)
+                    {
+                        target.Heal(monster.NowIntent.CardEffectData.Amount);
+                    }
+                    break;
+
+                //색 칠하기 구현 이후 작업 필요
+                case E_EffectType.Black:
+                    foreach (UnitBase target in targets)
+                    {
+                        target.Heal(monster.NowIntent.CardEffectData.Amount);
+                    }
+                    break;
+
+                default:
+                    foreach (UnitBase target in targets)
+                    {
+                        EffectFactory.GetEffectByType(monster.NowIntent.CardEffectData.CardEffectType, monster.NowIntent.CardEffectData.Amount).ApplyEffect(target);
+                        target.EffectUpdateAction?.Invoke();
+                    }
+                    break;
+            }
+        }
+
+
+        foreach (TempMonster monster in EnemyUnits)
+        {
+            monster.ChooseIntent();
+        }
+
+    }
+
+    public void TurnOver()
+    {
+        for (int i = 0; i < PlayerUnits.Count; i++)
+        {
+            UnitBase unit = PlayerUnits[i];
+            for (int j = 0; j < unit.ActiveEffectList.Count; j++)
+            {
+                EffectBase effect = unit.ActiveEffectList[j];
+                effect.NextTurnStarted(unit);
+            }
+            unit.EffectUpdateAction?.Invoke();
+        }
+
+        for (int i = 0; i < EnemyUnits.Count; i++)
+        {
+            UnitBase unit = EnemyUnits[i];
+            for (int j = 0; j < unit.ActiveEffectList.Count; j++)
+            {
+                EffectBase effect = unit.ActiveEffectList[j];
+                effect.NextTurnStarted(unit);
+            }
+            unit.EffectUpdateAction?.Invoke();
+        }
+
+    }
     public void StartPlayerTurn()
     {
         FillEnergy();
@@ -91,7 +169,14 @@ public class BattleManager : MonoBehaviour
     /// <returns></returns>
     public List<UnitBase> GetProperUnits(UnitBase unit, E_TargetType targetType)
     {
+        
         List<UnitBase> tempUnits = new List<UnitBase>();
+
+        if (unit.tag == "Monster" && targetType == E_TargetType.TargetEnemy)
+        {
+            tempUnits.Add(PlayerUnits[0]); return tempUnits;
+        }
+
         switch (targetType)
         {
             case E_TargetType.TargetEnemy:

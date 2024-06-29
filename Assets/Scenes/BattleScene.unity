@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerUnits: []
-  PlayerCharOffset: 2
+  PlayerCharOffset: 3.8
   EnemyUnits: []
   TargetMonster: {fileID: 0}
   PlayerMoveDuration: 0.46
@@ -2240,7 +2240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &882303954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2351,6 +2351,15 @@ MonoBehaviour:
   IsChained: 0
   StartHP: 20
   IntentDatas: "0.5\t1\t5\r\n0.5\t3\t6"
+  MonIntentDataList: []
+  NowIntent:
+    Probability: 0
+    CardEffectData:
+      EffectID: 0
+      TargetType: 0
+      CardEffectType: 0
+      Amount: 0
+      InfoString: 
 --- !u!1 &899831358
 GameObject:
   m_ObjectHideFlags: 0
@@ -3197,7 +3206,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1459687761413824771, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1459687762426582828, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: m_Name
@@ -3289,7 +3298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1459687763038673052, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6247933095597418999, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: thisUnit
@@ -5249,8 +5258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51db42cb66f9eac4eb978cf2566a24f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nowHp: 0
-  MaxHP: 0
+  _nowHp: 20
+  MaxHP: 20
   IsInjured: 0
   IsChained: 0
 --- !u!1001 &2573305439044872958
@@ -5392,8 +5401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51db42cb66f9eac4eb978cf2566a24f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nowHp: 0
-  MaxHP: 0
+  _nowHp: 20
+  MaxHP: 20
   IsInjured: 0
   IsChained: 0
 --- !u!1001 &5952677454704972162
@@ -5515,8 +5524,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51db42cb66f9eac4eb978cf2566a24f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nowHp: 0
-  MaxHP: 0
+  _nowHp: 20
+  MaxHP: 20
   IsInjured: 0
   IsChained: 0
 --- !u!4 &7905845980045447396 stripped
