@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class UnitEffects : MonoBehaviour
 {
-    private UnitBase thisUnit;
-    private GameObject Icon;
+    public UnitBase thisUnit;
+    private GameObject _iconGO;
     void Start()
     {
-        thisUnit = transform.parent.parent.GetComponent<UnitBase>();
-        Icon = Resources.Load("Prefabs/IMG_EffectIcon") as GameObject;
+        _iconGO = Resources.Load("Prefabs/IMG_EffectIcon") as GameObject;
         thisUnit.EffectUpdateAction += UpdateUI;
     }
 
@@ -24,7 +23,7 @@ public class UnitEffects : MonoBehaviour
         // ActiveEffects 리스트의 각 효과에 대해 아이콘 생성 및 설정
         for (int i = 0; i < thisUnit.ActiveEffectList.Count; i++)
         {
-            GameObject newIcon = Instantiate(Icon, transform);
+            GameObject newIcon = Instantiate(_iconGO, transform);
             newIcon.GetComponent<EffectIcon>().SetIcon(thisUnit.ActiveEffectList[i]);
         }
     }

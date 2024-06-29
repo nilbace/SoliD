@@ -51,50 +51,18 @@ public class CardGO : MonoBehaviour
             switch (cardEffectData.CardEffectType)
             {
                 case E_EffectType.Damage:
-                    foreach(UnitBase target in targets)
+                    foreach (UnitBase target in targets)
                     {
                         target.GetDamage(cardEffectData.Amount);
                     }
                     break;
-                case E_EffectType.Encroachment:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Encroachment(cardEffectData.Amount));
-                    }
-                    break;
                 case E_EffectType.Shield:
-                    //Todo : 방어도 추가
-                    break;
-                case E_EffectType.Strength:
-                    foreach (UnitBase target in targets)
+                    foreach(UnitBase target in targets)
                     {
-                        target.AddEffect(new Strength(cardEffectData.Amount));
+                        target.AddBarrier(cardEffectData.Amount);
                     }
                     break;
-                case E_EffectType.Thorn:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Thorn(cardEffectData.Amount));
-                    }
-                    break;
-                case E_EffectType.Bloodstain:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Bloodstain(cardEffectData.Amount));
-                    }
-                    break;
-                case E_EffectType.Concussion:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Concussion(cardEffectData.Amount));
-                    }
-                    break;
-                case E_EffectType.Chain:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Chain(cardEffectData.Amount));
-                    }
-                    break;
+               
                 case E_EffectType.Heal:
                     foreach (UnitBase target in targets)
                     {
@@ -107,51 +75,17 @@ public class CardGO : MonoBehaviour
                         target.Heal(cardEffectData.Amount);
                     }
                     break;
-                case E_EffectType.Crystallization:
-                    foreach (UnitBase target in targets)
+
+                default:
+                    foreach(UnitBase target in targets)
                     {
-                        target.AddEffect(new Crystallization(cardEffectData.Amount));
-                    }
-                    break;
-                case E_EffectType.Blade:
-                    foreach (UnitBase target in targets)
-                    {
-                        new Blade(cardEffectData.Amount).ApplyEffect(target);
+                        EffectFactory.GetEffectByType(cardEffectData.CardEffectType, cardEffectData.Amount).ApplyEffect(target);
                         target.EffectUpdateAction?.Invoke();
                     }
                     break;
-                case E_EffectType.Blessing:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Blessing(cardEffectData.Amount));
-                    }
-                    break;
-                case E_EffectType.Despair:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Despair(cardEffectData.Amount));
-                        
-                    }
-                    break;
-                case E_EffectType.MuscleLoss:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new MuscleLoss(cardEffectData.Amount));
-                    }
-                    break;
-                case E_EffectType.BulletMark:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new BulletMark(cardEffectData.Amount));
-                    }
-                    break;
-                case E_EffectType.Vulnerability:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.AddEffect(new Vulnerability(cardEffectData.Amount));
-                    }
-                    break;
+             
             }
+
 
             HandManager.Inst.DiscardCardFromHand(gameObject);
         }

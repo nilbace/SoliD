@@ -9,9 +9,15 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Inst;
+    [HideInInspector]
     public List<UnitBase> PlayerUnits;
-    public List<Vector2> PlayerPozs;
+
+    [Tooltip("캐릭터 사이의 거리")]
+    public float PlayerCharOffset;
+
+    [HideInInspector]
     public List<UnitBase> EnemyUnits;
+    [HideInInspector]
     public UnitBase TargetMonster;
     public float PlayerMoveDuration;
 
@@ -21,7 +27,8 @@ public class BattleManager : MonoBehaviour
 
     public List<Sprite> EffectIcons;
 
-
+    //TODO
+    //몬스터 쪽은 ResetDatas에 넣어 수정 예정
     private void Awake()
     {
         Inst = this;
@@ -34,6 +41,14 @@ public class BattleManager : MonoBehaviour
         EnergyAmount = 3;
         NowEnergy = EnergyAmount;
         UpdateBattleUI();
+    }
+
+    /// <summary>
+    /// 새로운 전투가 시작될 때 호출
+    /// </summary>
+    public void ResetDatas()
+    {
+        
     }
 
 
@@ -116,7 +131,7 @@ public class BattleManager : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                PlayerUnits[i].transform.localPosition = PlayerPozs[i];
+                PlayerUnits[i].transform.localPosition = Vector3.left * i * PlayerCharOffset;
             }
         }
     }
@@ -141,14 +156,14 @@ public class BattleManager : MonoBehaviour
             // DOTween 시퀀스를 사용하여 애니메이션 순서를 관리합니다.
             Sequence moveSequence = DOTween.Sequence();
 
-            moveSequence.Append(targetChar.transform.DOLocalMove(PlayerPozs[0], PlayerMoveDuration));
+            moveSequence.Append(targetChar.transform.DOLocalMoveX(0, PlayerMoveDuration));
 
             int pozIndex = 1;
             for (int i = 0; i < PlayerUnits.Count; i++)
             {
                 if (i != targetIndex)
                 {
-                    moveSequence.Join(PlayerUnits[i].transform.DOLocalMove(PlayerPozs[pozIndex], PlayerMoveDuration));
+                    moveSequence.Join(PlayerUnits[i].transform.DOLocalMoveX(-PlayerCharOffset*pozIndex, PlayerMoveDuration));
                     pozIndex++;
                 }
             }

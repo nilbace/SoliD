@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TempMonster : UnitBase
 {
+    private float barrier;
     public int StartHP;
     private new void Start()
     {
@@ -12,4 +13,34 @@ public class TempMonster : UnitBase
         NowHp = MaxHP = StartHP;
     }
 
+    public override float GetBarrier()
+    {
+        return barrier;
+    }
+
+    public override void AddBarrier(float barrier)
+    {
+        this.barrier += barrier;
+    }
+
+    public override void GetDamage(float amount)
+    {
+        if (barrier > 0)
+        {
+            barrier -= amount;
+            if (barrier < 0)
+            {
+                NowHp += barrier; // 남은 데미지를 HP에 적용
+                barrier = 0;
+            }
+        }
+        else
+        {
+            NowHp -= amount;
+        }
+
+        if (NowHp < 0) NowHp = 0;
+
+        Debug.Log($"Monster took damage. Barrier: {barrier}, HP: {NowHp}");
+    }
 }

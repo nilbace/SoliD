@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6143628637690762840
 CanvasRenderer:
@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893cb6afd78fb1b45914322af7ded524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IMG_icon: {fileID: 6143628637690762843}
+  TMP_Count: {fileID: 5429559014497953372}
 --- !u!1 &6927343815906865814
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,8 +125,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115.5, y: -37.5}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 61.3, y: -57.8}
+  m_SizeDelta: {x: 54.9924, y: 45.2396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7919086445040530093
 CanvasRenderer:
@@ -154,7 +156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 11
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 39b69e3ad44b63047bbe011fec49fcde, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 4bcd763e091c4754aaca789374c60af6, type: 2}

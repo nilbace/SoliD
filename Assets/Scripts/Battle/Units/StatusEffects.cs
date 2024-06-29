@@ -1,7 +1,68 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
+public class EffectFactory
+{
+    public static EffectBase GetEffectByType(E_EffectType effectType, float amount)
+    {
+        switch (effectType)
+        {
+            case E_EffectType.Strength:
+                return new Strength(amount);
+
+            case E_EffectType.Crystallization:
+                return new Crystallization(amount);
+
+            case E_EffectType.Blessing:
+                return new Blessing(amount);
+
+            case E_EffectType.Vulnerability:
+                return new Vulnerability(amount);
+
+            case E_EffectType.Weakening:
+                return new Weakening(amount);
+
+            case E_EffectType.Thorn:
+                return new Thorn(amount);
+
+            case E_EffectType.Bloodstain:
+                return new Bloodstain(amount);
+
+            case E_EffectType.Chain:
+                return new Chain(amount);
+
+            case E_EffectType.Encroachment:
+                return new Encroachment(amount);
+
+            case E_EffectType.Blade:
+                return new Blade(amount);
+
+            case E_EffectType.BulletMark:
+                return new BulletMark(amount);
+
+            case E_EffectType.Injury:
+                return new Injury((int)amount); // Assuming Injury uses an int for stack
+
+            case E_EffectType.Concussion:
+                return new Concussion(amount);
+
+            case E_EffectType.Despair:
+                return new Despair(amount);
+
+            case E_EffectType.MuscleLoss:
+                return new MuscleLoss(amount);
+
+            case E_EffectType.Scabbard:
+                return new Scabbard((int)amount); // Assuming Scabbard uses an int for stack
+
+            default:
+                throw new ArgumentException($"Unknown effect type: {effectType}");
+        }
+    }
+}
 
 [System.Serializable]
 public abstract class EffectBase

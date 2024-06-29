@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UnitBase : MonoBehaviour
+public abstract class UnitBase : MonoBehaviour
 {
     public float _nowHp;
     public float MaxHP;
@@ -12,6 +12,8 @@ public class UnitBase : MonoBehaviour
     public bool IsChained;
     public List<EffectBase> ActiveEffectList;
     public Action EffectUpdateAction;
+    public abstract float GetBarrier();
+    public abstract void AddBarrier(float barrier);
 
 
     public void Start()
@@ -72,10 +74,7 @@ public class UnitBase : MonoBehaviour
 
     public virtual void Dead() { }
 
-    public void GetDamage(float amount)
-    {
-        NowHp -= amount;
-    }
+    public abstract void GetDamage(float amount);
 
     public void Heal(float amount)
     {
