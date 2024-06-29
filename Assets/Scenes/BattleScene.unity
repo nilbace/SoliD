@@ -2240,7 +2240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &882303954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2350,6 +2350,7 @@ MonoBehaviour:
   IsInjured: 0
   IsChained: 0
   StartHP: 20
+  IntentDatas: "0.5\t1\t5\r\n0.5\t3\t6"
 --- !u!1 &899831358
 GameObject:
   m_ObjectHideFlags: 0
@@ -3196,7 +3197,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1459687761413824771, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1459687762426582828, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: m_Name
@@ -3288,7 +3289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1459687763038673052, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6247933095597418999, guid: dd19956d62616814cad2a0397756b133, type: 3}
       propertyPath: thisUnit

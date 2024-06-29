@@ -69,6 +69,8 @@ public class CardGO : MonoBehaviour
                         target.Heal(cardEffectData.Amount);
                     }
                     break;
+
+                //색 칠하기 구현 이후 작업 필요
                 case E_EffectType.Black:
                     foreach (UnitBase target in targets)
                     {

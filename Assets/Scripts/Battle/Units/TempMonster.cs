@@ -6,6 +6,9 @@ public class TempMonster : UnitBase
 {
     private float barrier;
     public int StartHP;
+    [Multiline]
+    public string IntentDatas;
+
     private new void Start()
     {
         base.Start();
@@ -42,5 +45,10 @@ public class TempMonster : UnitBase
         if (NowHp < 0) NowHp = 0;
 
         Debug.Log($"Monster took damage. Barrier: {barrier}, HP: {NowHp}");
+    }
+
+    public void ThisTurnIntent()
+    {
+
     }
 }
