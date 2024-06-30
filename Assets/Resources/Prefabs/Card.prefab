@@ -489,7 +489,8 @@ MonoBehaviour:
   Duration: 0.58
   YOffset: -2.04
   IsCanceled: 0
-  _trBeforeMouseEnterPoz: {x: 0, y: 0, z: 0}
+  _BeforeMouseEnterPoz: {x: 0, y: 0, z: 0}
+  _BeforeMouseEnterRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &9142163225628598800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +751,7 @@ MonoBehaviour:
   m_text: 8
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d88f44f735eb0624ab554aeec1234525, type: 2}
-  m_sharedMaterial: {fileID: 5014707101912504978, guid: d88f44f735eb0624ab554aeec1234525, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: cde1db89bd4f7ef40bc22b995c2c4c47, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

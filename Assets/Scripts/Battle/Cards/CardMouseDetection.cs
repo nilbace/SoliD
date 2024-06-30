@@ -29,6 +29,7 @@ public class CardMouseDetection : MonoBehaviour
     }
     void OnMouseEnter()
     {
+        transform.DOKill();
         if (IsUsing) return;
         if(_BeforeMouseEnterPoz == Vector3.zero)
         {
@@ -39,6 +40,7 @@ public class CardMouseDetection : MonoBehaviour
         transform.rotation = Quaternion.identity;
         GlowBorder();
         transform.localPosition = _BeforeMouseEnterPoz + Vector3.up * 3;
+        MoveCardFront();
     }
 
     void OnMouseDown()
@@ -118,11 +120,13 @@ public class CardMouseDetection : MonoBehaviour
 
     private void OnMouseExit()
     {
+        transform.DOKill();
         if (IsUsing) return;
         gameObject.transform.position = _BeforeMouseEnterPoz;
         gameObject.transform.rotation = _BeforeMouseEnterRotation;
         _BeforeMouseEnterPoz = Vector3.zero;
         HideBorder();
+        HandManager.Inst.ArrangeCards();
     }
  
 
