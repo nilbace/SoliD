@@ -54,7 +54,7 @@ public class BattleManager : MonoBehaviour
 
     public void UpdateBattleUI()
     {
-        TMP_Energy.text = $"{NowEnergy}/{EnergyAmount}";
+        TMP_Energy.text = $"{NowEnergy}";
     }
 
     public void EndPlayerTurn()

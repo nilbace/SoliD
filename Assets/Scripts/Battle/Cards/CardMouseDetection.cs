@@ -12,6 +12,8 @@ public class CardMouseDetection : MonoBehaviour
     private bool _needTarget;
     private CardGO thisCardGO;
     [SerializeField] private bool IsCanceled; //우클릭으로 취소했는지
+    public Vector3 _BeforeMouseEnterPoz;
+    public Quaternion _BeforeMouseEnterRotation;
 
     private void Start()
     {
@@ -28,13 +30,20 @@ public class CardMouseDetection : MonoBehaviour
     void OnMouseEnter()
     {
         if (IsUsing) return;
+        if(_BeforeMouseEnterPoz == Vector3.zero)
+        {
+            _BeforeMouseEnterPoz = transform.position;
+            _BeforeMouseEnterRotation = transform.rotation;
+        }
+        transform.localScale = Vector3.one * 0.7f;
+        transform.rotation = Quaternion.identity;
         GlowBorder();
+        transform.localPosition = _BeforeMouseEnterPoz + Vector3.up * 3;
     }
 
     void OnMouseDown()
     {
         IsCanceled = false;
-        transform.localScale = Vector3.one * 0.7f;
         transform.rotation = Quaternion.identity;
         if (DOTween.IsTweening(transform)) // 만약 현재 이 게임 오브젝트에 대해 Dotween이 실행 중이라면
         {
@@ -110,6 +119,9 @@ public class CardMouseDetection : MonoBehaviour
     private void OnMouseExit()
     {
         if (IsUsing) return;
+        gameObject.transform.position = _BeforeMouseEnterPoz;
+        gameObject.transform.rotation = _BeforeMouseEnterRotation;
+        _BeforeMouseEnterPoz = Vector3.zero;
         HideBorder();
     }
  

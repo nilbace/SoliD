@@ -146,7 +146,7 @@ public class HandManager : MonoSingleton<HandManager>
 
             // 아치의 중심 위치에 대한 조정이 필요하다면 여기서 centerPosition을 더합니다.
             Vector3 targetPosition = centerPosition.position + cardPosition;
-            cardsInMyHand[i].transform.DOMove(targetPosition, MoveDuration);
+            cardsInMyHand[i].transform.DOLocalMove(targetPosition, MoveDuration);
 
             // 카드가 아치를 따라 올바른 방향을 가리키도록 z축 회전 조정
             float targetRotation = -(angle * Mathf.Rad2Deg);
