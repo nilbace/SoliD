@@ -72,10 +72,7 @@ public class CardGO : MonoBehaviour
 
                 //색 칠하기 구현 이후 작업 필요
                 case E_EffectType.Black:
-                    foreach (UnitBase target in targets)
-                    {
-                        target.Heal(cardEffectData.Amount);
-                    }
+                    
                     break;
 
                 default:
@@ -93,8 +90,9 @@ public class CardGO : MonoBehaviour
                 VisualEffectManager.Inst.InstantiateEffect(cardEffectData.CardEffectType, target);
             }
 
-            HandManager.Inst.DiscardCardFromHand(gameObject);
+            
         }
+        HandManager.Inst.DiscardCardFromHand(gameObject);
     }
 }
 
