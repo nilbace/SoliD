@@ -5,16 +5,25 @@ using UnityEngine.UI;
 
 public class UnitHpBar : MonoBehaviour
 {
-    public UnitBase UnitParent;
+    public E_CharName CharName;
+    private UnitBase thisUnit;
     private Slider HpSlider;
+    public Sprite[] HPSliderBackSprite;
     void Start()
     {
-        UnitParent = transform.parent.parent.GetComponent<UnitBase>();
         HpSlider = GetComponent<Slider>();
+
+        if (CharName == E_CharName.Null) thisUnit = transform.parent.parent.GetComponent<UnitBase>();
+        else
+        {
+            thisUnit = GameObject.FindWithTag(CharName.ToString()).GetComponent<UnitBase>();
+            Image backgroundImage = transform.Find("Background").GetComponent<Image>();
+            backgroundImage.sprite = HPSliderBackSprite[(int)CharName - 1];
+        }
     }
 
     void Update()
     {
-        HpSlider.value = (float)UnitParent.NowHp / (float)UnitParent.MaxHP;
+        HpSlider.value = (float)thisUnit.NowHp / (float)thisUnit.MaxHP;
     }
 }

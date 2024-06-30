@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum E_CharName
 {
+    Null,
     Minju,
     Seolha,
     Yerin

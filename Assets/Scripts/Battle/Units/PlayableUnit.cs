@@ -44,6 +44,6 @@ public class PlayableUnit : UnitBase
     {
         base.Start();
         BattleManager.Inst.PlayerUnits.Add(this);
-        BattleManager.Inst.ArrangePlayerChars();
+        BattleManager.Inst.MoveCharFront(E_CardOwner.Minju);
     }
 }

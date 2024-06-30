@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 전투 대상과 턴 관리
+/// 전투 대상, 턴, 캐릭터 이동 관리
 /// </summary>
 public class BattleManager : MonoBehaviour
 {
@@ -14,6 +14,9 @@ public class BattleManager : MonoBehaviour
 
     [Tooltip("캐릭터 사이의 거리")]
     public float PlayerCharOffset;
+    public float FrontCharSize;
+    public float BackCharSize;
+
 
     [HideInInspector]
     public List<UnitBase> EnemyUnits;
@@ -214,16 +217,9 @@ public class BattleManager : MonoBehaviour
         return new List<UnitBase>();
     }
 
-    public void ArrangePlayerChars()
-    {
-        if(PlayerUnits.Count == 3)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                PlayerUnits[i].transform.localPosition = Vector3.left * i * PlayerCharOffset;
-            }
-        }
-    }
+    #region 캐릭터 이동 
+
+ 
     public void MoveCharFront(E_CardOwner cardOwner)
     {
         // cardOwner와 일치하는 캐릭터를 찾습니다.
@@ -246,6 +242,7 @@ public class BattleManager : MonoBehaviour
             Sequence moveSequence = DOTween.Sequence();
 
             moveSequence.Append(targetChar.transform.DOLocalMoveX(0, PlayerMoveDuration));
+            moveSequence.Join(targetChar.transform.DOScale(FrontCharSize, PlayerMoveDuration));
 
             int pozIndex = 1;
             for (int i = 0; i < PlayerUnits.Count; i++)
@@ -253,6 +250,7 @@ public class BattleManager : MonoBehaviour
                 if (i != targetIndex)
                 {
                     moveSequence.Join(PlayerUnits[i].transform.DOLocalMoveX(-PlayerCharOffset*pozIndex, PlayerMoveDuration));
+                    moveSequence.Join(PlayerUnits[i].transform.DOScale(BackCharSize, PlayerMoveDuration));
                     pozIndex++;
                 }
             }
@@ -269,6 +267,8 @@ public class BattleManager : MonoBehaviour
             moveSequence.Play();
         }
     }
+
+    #endregion
 
     public Sprite GetEffectIcon(E_EffectType effect)
     {
