@@ -1330,7 +1330,7 @@ MonoBehaviour:
   EffectList:
   - {fileID: 5158461896570344558, guid: 2d96a580ef051de498355b336b6a03dd, type: 3}
   - {fileID: 3919445155170265295, guid: c10304a0e12f8a3469d68f9e247c5e2e, type: 3}
-  - {fileID: 3919445155170265295, guid: 96650c0d6af52af46964cdf77bcd01ad, type: 3}
+  - {fileID: 6342938322678476169, guid: 47627a0870d5b234caf5f3eae627d38f, type: 3}
   - {fileID: 4718844243397130879, guid: c153b4dd7f0eed54f9124adc91628c64, type: 3}
   - {fileID: 5553784123641463371, guid: 3db93dc1ff4f95e4da45cf8fc5cb0554, type: 3}
   - {fileID: 3919445155170265295, guid: 897e716eda6f49d40bf56601320d41fb, type: 3}
