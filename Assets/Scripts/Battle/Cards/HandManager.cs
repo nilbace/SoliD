@@ -23,7 +23,6 @@ public class HandManager : MonoSingleton<HandManager>
     [SerializeField] private Vector3 _tValueForThreeCards;
 
     private List<GameObject> cardsInMyHand = new List<GameObject>();
-    public DeckManager TempDeck;
     private int cardIndex;
 
     public void DrawCards(int count)
@@ -33,13 +32,15 @@ public class HandManager : MonoSingleton<HandManager>
 
     private IEnumerator DrawCardsCoroutine(int count)
     {
+        var Cards = GameManager.UserData.UserDeckList;
+
         for (int i = 0; i < count; i++)
         {
-            if (TempDeck.Cards.Count == 0) yield break;
+            if (Cards.Count == 0) yield break;
 
             GameObject newCard = Instantiate(cardPrefab);
             var newcardData = newCard.GetComponent<CardGO>();
-            newcardData.thisCardData = TempDeck.Cards[cardIndex++];
+            newcardData.thisCardData = Cards[cardIndex++];
             newcardData.SetCardSprite();
             cardsInMyHand.Add(newCard);
             ArrangeCards();

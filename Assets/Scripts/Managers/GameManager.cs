@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Inst { get { Init(); return s_instance; } }
 
     PoolManager _pool = new PoolManager();
+    UserData _userData = new UserData();
     public static PoolManager Pool { get { return Inst._pool; } }
     public static BattleManager Battle { get { return BattleManager.Inst; } }
+    public static UserData UserData { get { return Inst._userData; } }
 
     private void Awake()
     {
@@ -30,7 +32,14 @@ public class GameManager : MonoBehaviour
             s_instance = go.GetComponent<GameManager>();
 
             s_instance._pool.Init();
+            s_instance._userData.Init();
         }
 
+    }
+
+    [ContextMenu("∞ÒµÂ »Æ¿Œ")]
+    public void ShowGold()
+    {
+        Debug.Log(s_instance._userData.NowGold);
     }
 }

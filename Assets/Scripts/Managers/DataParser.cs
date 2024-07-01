@@ -14,8 +14,6 @@ public class DataParser : MonoBehaviour
     private const string URL_CardData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=0&range=A2:K32";
     private const string URL_CardEffectData = "https://docs.google.com/spreadsheets/d/1-taJJ7Z8a61PP_4emH93k5ooAO3j0-tKZxo4WkM7wz8/export?format=tsv&gid=1198669234&range=A2:D26";
 
-    public DeckManager TempDeck;
-
     private void Awake()
     {
         Inst = this;
@@ -142,7 +140,7 @@ public class DataParser : MonoBehaviour
             }
         }
         // 처리된 카드를 덱에 추가
-        TempDeck.Cards.Add(cardData);
+        GameManager.UserData.UserDeckList.Add(cardData);
     }
 
     public CardEffectData GetCardEffectFromListByIndex(int index)
