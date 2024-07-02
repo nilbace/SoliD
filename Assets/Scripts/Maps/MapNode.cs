@@ -45,13 +45,13 @@ namespace Map
 
             if (visitedCircle != null)
             {
-                visitedCircle.color = MapView.Instance.visitedColor;
+                visitedCircle.color = MapView.Inst.visitedColor;
                 visitedCircle.gameObject.SetActive(false);
             }
 
             if (circleImage != null)
             {
-                circleImage.color = MapView.Instance.visitedColor;
+                circleImage.color = MapView.Inst.visitedColor;
                 circleImage.gameObject.SetActive(false);    
             }
             
@@ -69,13 +69,13 @@ namespace Map
                     if (sr != null)
                     {
                         sr.DOKill();
-                        sr.color = MapView.Instance.lockedColor;
+                        sr.color = MapView.Inst.lockedColor;
                     }
 
                     if (image != null)
                     {
                         image.DOKill();
-                        image.color = MapView.Instance.lockedColor;
+                        image.color = MapView.Inst.lockedColor;
                     }
 
                     break;
@@ -83,13 +83,13 @@ namespace Map
                     if (sr != null)
                     {
                         sr.DOKill();
-                        sr.color = MapView.Instance.visitedColor;
+                        sr.color = MapView.Inst.visitedColor;
                     }
                     
                     if (image != null)
                     {
                         image.DOKill();
-                        image.color = MapView.Instance.visitedColor;
+                        image.color = MapView.Inst.visitedColor;
                     }
                     
                     if (visitedCircle != null) visitedCircle.gameObject.SetActive(true);
@@ -99,16 +99,16 @@ namespace Map
                     // start pulsating from visited to locked color:
                     if (sr != null)
                     {
-                        sr.color = MapView.Instance.lockedColor;
+                        sr.color = MapView.Inst.lockedColor;
                         sr.DOKill();
-                        sr.DOColor(MapView.Instance.visitedColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
+                        sr.DOColor(MapView.Inst.visitedColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
                     }
                     
                     if (image != null)
                     {
-                        image.color = MapView.Instance.lockedColor;
+                        image.color = MapView.Inst.lockedColor;
                         image.DOKill();
-                        image.DOColor(MapView.Instance.visitedColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
+                        image.DOColor(MapView.Inst.visitedColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
                     }
                     
                     break;

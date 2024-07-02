@@ -18,4 +18,9 @@ public class BaseUI : MonoBehaviour
     {
         TMP_Gold.text = GameManager.UserData.NowGold.ToString();
     }
+
+    public void MapBTN()
+    {
+        Map.MapView.Inst.MapBTN();
+    }
 }

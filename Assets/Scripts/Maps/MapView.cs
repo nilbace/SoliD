@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Map
 
         public MapManager mapManager;
         public MapOrientation orientation;
+        public float mapSize;
 
         [Tooltip(
             "List of all the MapConfig scriptable objects from the Assets folder that might be used to construct maps. " +
@@ -26,6 +28,7 @@ namespace Map
         [Tooltip("Offset of the start/end nodes of the map from the edges of the screen")]
         public float orientationOffset;
         [Header("Background Settings")]
+        public GameObject PannelPrefab;
         [Tooltip("If the background sprite is null, background will not be shown")]
         public Sprite background;
         public Color32 backgroundColor = Color.white;
@@ -56,13 +59,14 @@ namespace Map
         public readonly List<MapNode> MapNodes = new List<MapNode>();
         protected readonly List<LineConnection> lineConnections = new List<LineConnection>();
 
-        public static MapView Instance;
+        public static MapView Inst;
+        private bool isHide;
 
         public Map Map { get; protected set; }
 
         private void Awake()
         {
-            Instance = this;
+            Inst = this;
             cam = Camera.main;
         }
 
@@ -104,6 +108,10 @@ namespace Map
             CreateMapBackground(m);
 
             MoveToCenter();
+
+            SetSortingLayer();
+
+            HideMap();
         }
 
         protected virtual void CreateMapBackground(Map m)
@@ -133,6 +141,8 @@ namespace Map
             scrollNonUi.freezeY = orientation == MapOrientation.LeftToRight || orientation == MapOrientation.RightToLeft;
             var boxCollider = mapParent.AddComponent<BoxCollider>();
             boxCollider.size = new Vector3(100, 100, 1);
+
+            Instantiate(PannelPrefab, firstParent.transform);
         }
 
         protected void CreateNodes(IEnumerable<Node> nodes)
@@ -351,6 +361,57 @@ namespace Map
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
             float bossNodePozX = bossNode.gameObject.transform.position.x;
             mapParent.transform.position += new Vector3(-bossNodePozX, 0, 0);
+        }
+
+        public void SetSortingLayer()
+        {
+            var parenttr = mapParent.transform;
+            Renderer[] SRs = parenttr.GetComponentsInChildren<Renderer>();
+            foreach(Renderer SR in SRs)
+            {
+                SR.sortingLayerName = "Map";
+            }
+            firstParent.transform.localScale = Vector3.one * mapSize;
+
+        }
+
+        public void ShowMap()
+        {
+            firstParent.SetActive(true);
+            var parenttr = mapParent.transform;
+
+            // 모든 자식을 순회하는 재귀 함수
+            void FadeInChildren(Transform parent)
+            {
+                foreach (Transform child in parent)
+                {
+                    SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                    {
+                        sr.DOFade(0.2f, 0f);
+                        sr.DOFade(1f, 0.5f).SetEase(Ease.Linear);
+                    }
+                    // 자식의 자식들도 처리
+                    FadeInChildren(child);
+                }
+            }
+
+            // 첫 번째 부모의 모든 자식에 대해 재귀 함수 호출
+            FadeInChildren(parenttr);
+
+            isHide = false;
+        }
+
+        public void HideMap()
+        {
+            firstParent.gameObject.SetActive(false);
+            isHide = true;
+        }
+
+        public void MapBTN()
+        {
+            if (isHide) ShowMap();
+            else HideMap();
         }
     }
 }
